@@ -598,6 +598,47 @@
   }
   .ts-link:hover{border-color:var(--blue-400);transform:translateY(-2px);box-shadow:0 10px 22px -12px rgba(23,84,148,.3)}
 
+  /* ---------- ID 查询页面 ---------- */
+  .idq-top{display:flex;flex-direction:column;gap:14px;margin-bottom:18px}
+  .idq-search{
+    position:relative;display:flex;align-items:center;gap:10px;
+    background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 14px;
+  }
+  .idq-search:focus-within{border-color:var(--blue-400);box-shadow:0 0 0 3px rgba(47,127,209,.12)}
+  .idq-sicon{font-size:15px;opacity:.7}
+  .idq-search input{
+    flex:1;border:none;outline:none;background:transparent;font-size:14px;color:var(--ink);font-family:inherit;
+  }
+  .idq-search input::placeholder{color:var(--ink-soft);opacity:.6}
+  .idq-count{font-size:11.5px;color:var(--blue-600);background:var(--blue-100);padding:2px 9px;border-radius:999px;white-space:nowrap}
+  .idq-cats{display:flex;flex-wrap:wrap;gap:8px}
+  .idq-cat{
+    display:inline-flex;align-items:center;gap:7px;padding:7px 13px;border-radius:9px;
+    background:var(--card);border:1px solid var(--line);color:var(--ink-soft);
+    font-size:12.5px;font-weight:600;cursor:pointer;transition:.2s;font-family:inherit;
+  }
+  .idq-cat:hover{border-color:var(--blue-400);color:var(--blue-700)}
+  .idq-cat.active{background:var(--blue-500);border-color:var(--blue-500);color:#fff}
+  .idq-cat .idq-num{font-size:10px;background:var(--blue-100);color:var(--blue-600);padding:1px 7px;border-radius:999px}
+  .idq-cat.active .idq-num{background:rgba(255,255,255,.25);color:#fff}
+  .idq-body{min-height:200px}
+  .idq-loading{text-align:center;padding:60px 20px;color:var(--ink-soft);font-size:14px}
+  .idq-empty{text-align:center;padding:60px 20px;color:var(--ink-soft);font-size:14px}
+  .idq-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
+  .idq-item{
+    display:flex;flex-direction:column;gap:3px;padding:11px 14px;border-radius:10px;
+    background:var(--card);border:1px solid var(--line);cursor:pointer;transition:.18s;
+  }
+  .idq-item:hover{border-color:var(--blue-400);transform:translateY(-2px);box-shadow:0 8px 18px -10px rgba(23,84,148,.25)}
+  .idq-item.copied{border-color:#16a34a;background:rgba(22,163,74,.08)}
+  .idq-id{font-family:var(--mono);font-size:12.5px;color:var(--blue-700);font-weight:700;word-break:break-all}
+  .idq-item.copied .idq-id{color:#16a34a}
+  .idq-desc{font-size:12px;color:var(--ink-soft);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  @media (max-width:640px){
+    .idq-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
+    .idq-cat{padding:6px 10px;font-size:11.5px}
+  }
+
   @media (max-width:640px){
     .ts-vars{grid-template-columns:repeat(2,1fr)}
     .ts-param{padding:14px 14px}
@@ -1286,18 +1327,112 @@ function renderGenerator(){
   setSideActive("generator");
 }
 
-// ID查询（敬请期待）
+// ID查询（基岩版全部 ID）
+let ID_DATA = null;          // 完整数据
+let ID_ENUMS = null;         // 当前分类映射
+let ID_CUR = "block";        // 当前分类
+let ID_QUERY = "";           // 搜索关键词
+let ID_LOADING = false;      // 是否加载中
+
 function renderIdQuery(){
   view.innerHTML = `
     <div class="page-head">
       <h2>ID查询</h2>
       <span class="tag">ID Query</span>
     </div>
-    <div class="detail-card" style="text-align:center;padding:70px 30px">
-      <div style="font-size:18px;color:var(--blue-700);font-weight:700;letter-spacing:1px">敬请期待敬请期待</div>
-      <div style="margin-top:16px;font-size:14px;color:var(--ink-soft)">正在偷懒中…</div>
+    <div class="idq-top">
+      <div class="idq-search">
+        <span class="idq-sicon">🔍</span>
+        <input id="idq-input" type="text" placeholder="输入关键词搜索当前分类的 ID…" oninput="idSearch(this.value)">
+        <span class="idq-count" id="idq-count"></span>
+      </div>
+      <div class="idq-cats" id="idq-cats"></div>
+    </div>
+    <div class="idq-body" id="idq-body">
+      <div class="idq-loading">正在加载基岩版 ID 数据…</div>
     </div>`;
   setSideActive("idquery");
+  loadIdData();
+}
+
+function loadIdData(){
+  if(ID_DATA){ renderIdCat(ID_CUR); return; }
+  if(ID_LOADING) return;
+  ID_LOADING = true;
+  fetch("assets/idlist.json")
+    .then(r=>r.json())
+    .then(d=>{
+      ID_DATA = d;
+      renderIdCats();
+      renderIdCat(ID_CUR);
+    })
+    .catch(()=>{
+      const b = document.getElementById("idq-body");
+      if(b) b.innerHTML = `<div class="idq-loading">数据加载失败，请刷新重试</div>`;
+    })
+    .finally(()=>{ ID_LOADING = false; });
+}
+
+function renderIdCats(){
+  const box = document.getElementById("idq-cats");
+  if(!box || !ID_DATA) return;
+  box.innerHTML = ID_DATA.names.map(n=>`
+    <button class="idq-cat${n[0]===ID_CUR?" active":""}" onclick="idSwitch('${n[0]}')" title="${escapeHtml(n[2])}">
+      <span class="idq-cn">${escapeHtml(n[1])}</span>
+      <span class="idq-num">${(ID_DATA.enums[n[0]]?Object.keys(ID_DATA.enums[n[0]]).length:0)}</span>
+    </button>`).join("");
+}
+
+function idSwitch(k){
+  ID_CUR = k;
+  ID_QUERY = "";
+  const inp = document.getElementById("idq-input");
+  if(inp) inp.value = "";
+  renderIdCats();
+  renderIdCat(k);
+}
+
+function idSearch(q){
+  ID_QUERY = q.trim().toLowerCase();
+  renderIdCat(ID_CUR);
+}
+
+function renderIdCat(k){
+  const body = document.getElementById("idq-body");
+  if(!body || !ID_DATA) return;
+  if(!ID_DATA.enums[k]){ body.innerHTML = `<div class="idq-loading">该分类暂无数据</div>`; return; }
+  const map = ID_DATA.enums[k];
+  let items = Object.entries(map);
+  // 搜索过滤
+  if(ID_QUERY){
+    items = items.filter(([id,name])=>
+      id.toLowerCase().includes(ID_QUERY) || name.toLowerCase().includes(ID_QUERY));
+  }
+  // 计数
+  const cnt = document.getElementById("idq-count");
+  if(cnt) cnt.textContent = items.length + " 条";
+  if(items.length===0){
+    body.innerHTML = `<div class="idq-empty">未找到匹配「${escapeHtml(ID_QUERY)}」的 ID</div>`;
+    return;
+  }
+  body.innerHTML = `<div class="idq-grid">` + items.map(([id,name])=>`
+    <div class="idq-item" onclick="copyId(this,'${escapeHtml(id)}')" title="点击复制">
+      <span class="idq-id">${escapeHtml(id)}</span>
+      <span class="idq-desc">${escapeHtml(name)}</span>
+    </div>`).join("") + `</div>`;
+}
+
+function copyId(el, id){
+  navigator.clipboard.writeText(id).then(()=>{
+    el.classList.add("copied");
+    setTimeout(()=>el.classList.remove("copied"),800);
+    toast("已复制 " + id);
+  }).catch(()=>{
+    const ta = document.createElement("textarea");
+    ta.value = id; document.body.appendChild(ta); ta.select();
+    document.execCommand("copy"); ta.remove();
+    toast("已复制 " + id);
+  });
 }
 
 /* ================= 种子图（cubiomes WASM 真实世界生成） ================= */
