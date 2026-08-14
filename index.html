@@ -2250,7 +2250,7 @@ function renderIdQuery(){
 }
 
 function loadIdData(){
-  if(ID_DATA){ renderIdCat(ID_CUR); return; }
+  if(ID_DATA){ renderIdCats(); renderIdCat(ID_CUR); return; }
   if(ID_LOADING) return;
   ID_LOADING = true;
   fetch("assets/idlist.json")
