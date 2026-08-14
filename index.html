@@ -385,15 +385,45 @@
   .gen-all-detail{margin-top:6px;border-top:1px dashed var(--line);padding-top:14px}
   .gen-all-title{font-family:var(--mono);font-size:15px;color:var(--blue-900);font-weight:700;margin-bottom:10px}
   .gen-all-syntax{font-size:11px;color:var(--ink-soft);margin-top:8px;line-height:1.5}
+  .gen-cmd-list{display:flex;flex-direction:column;gap:6px;max-height:calc(100vh - 280px);overflow-y:auto;padding-right:4px}
+  .gen-exec-sub{border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:10px;background:var(--panel);box-shadow:var(--shadow)}
+  .gen-exec-head{display:flex;align-items:center;gap:8px}
+  .gen-exec-idx{flex:none;width:22px;height:22px;border-radius:7px;background:var(--blue-600);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center}
+  .gen-exec-head .gen-exec-type{flex:1;min-width:0}
+  .gen-exec-del{flex:none;padding:7px 12px;border:1px solid var(--blue-300);border-radius:9px;background:var(--blue-50);color:var(--blue-700);font-size:12.5px;font-weight:700;cursor:pointer;transition:all .2s}
+  .gen-exec-del:hover{border-color:#ef4444;color:#ef4444;background:rgba(239,68,68,.08)}
+  .gen-exec-fields{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+  .gen-exec-add{align-self:flex-start;padding:9px 16px;border:1.5px dashed var(--blue-500);border-radius:10px;background:var(--blue-50);color:var(--blue-700);font-size:13px;font-weight:700;cursor:pointer;transition:all .2s}
+  .gen-exec-add:hover{background:var(--blue-100);border-style:solid}
+  .gen-exec-sub select,.gen-exec-sub input[type=text],.gen-exec-sub input[type=number]{height:40px;padding:0 12px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink);font-size:13.5px;outline:none;transition:border-color .2s,box-shadow .2s;width:100%}
+  .gen-exec-sub select:focus,.gen-exec-sub input:focus{border-color:var(--blue-500);box-shadow:0 0 0 3px rgba(37,99,168,.12)}
+  .gen-exec-sub select{appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path fill='%232f7fd1' d='M6 8L0 0h12z'/></svg>");background-repeat:no-repeat;background-position:right 12px center;padding-right:30px;cursor:pointer}
+  .gen-exec-sub .gen-field{display:flex;flex-direction:column;gap:5px}
+  .gen-exec-sub .gen-field>label{font-size:12px;font-weight:600;color:var(--ink-soft)}
+  .gen-exec-run{margin-top:2px;border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--panel-2)}
+  .gen-exec-run input{height:40px;padding:0 12px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink);font-size:13.5px;outline:none;transition:border-color .2s,box-shadow .2s;width:100%}
+  .gen-exec-run input:focus{border-color:var(--blue-500);box-shadow:0 0 0 3px rgba(37,99,168,.12)}
+  .gen-exec-run .gen-field{display:flex;flex-direction:column;gap:5px}
+  .gen-exec-run .gen-field>label{font-size:12px;font-weight:700;color:var(--blue-800)}
+  .gen-exec-tip{font-size:12.5px;color:var(--ink-soft);margin-bottom:2px;display:flex;align-items:center;gap:6px}
   @media(max-width:820px){
     .gen-layout{grid-template-columns:1fr}
     .gen-types{flex-direction:column;gap:8px;overflow-x:visible}
     .gen-type{flex:none;width:auto}
-    #genCmdList{max-height:230px}
+    .gen-cmd-list{max-height:min(28vh, 240px)}
     .gen-out{flex-direction:column;align-items:stretch}
-    .gen-out .go-cmd{width:100%}
+    .gen-out .go-cmd{width:100%;font-size:12px}
     .gen-out .go-copy{width:100%;text-align:center}
     .gen-panel{min-height:0}
+    .gen-exec-sub{padding:10px}
+    .gen-exec-fields{grid-template-columns:1fr}
+    .gen-exec-head{flex-wrap:wrap}
+    .gen-exec-del{min-width:44px;min-height:38px;display:flex;align-items:center;justify-content:center}
+  }
+  @media(max-width:480px){
+    .gen-body{padding:14px;gap:16px}
+    .gen-exec-sub{padding:10px 8px}
+    .gen-foot{padding:12px 14px; padding-bottom:calc(12px + env(safe-area-inset-bottom))}
   }
   @media(max-width:560px){.gen-row{grid-template-columns:1fr}}
   .ai-chat{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:12px;background:var(--panel);overflow:hidden;min-height:480px}
@@ -2000,8 +2030,11 @@ function genRenderForm(){
         html+=`<div class="gen-field"><label>${label}${opt}</label><select data-k="${k}" onchange="genBuild()"><option value="add">add（添加）</option><option value="remove">remove（移除）</option></select></div>`;
       }else if(t==="text_align"){
         html+=`<div class="gen-field"><label>${label}${opt}</label><select data-k="${k}" onchange="genBuild()"><option value="title">title（大标题）</option><option value="subtitle">subtitle（副标题）</option><option value="actionbar">actionbar（快捷栏上方）</option></select></div>`;
+      }else if(t==="text"){
+        const ph=genPlaceholder(p.name);
+        html+=`<div class="gen-field"><label>${label}${opt}</label><input type="text" data-k="${k}" placeholder="${ph}" oninput="genBuild()"></div>`;
       }else{
-        html+=`<div class="gen-field"><label>${label}${opt}</label><input type="text" data-k="${k}" placeholder="${p.name}" oninput="genBuild()"></div>`;
+        html+=`<div class="gen-field"><label>${label}${opt}</label><input type="text" data-k="${k}" placeholder="${genPlaceholder(p.name)}" oninput="genBuild()"></div>`;
       }
     });
   }
@@ -2011,6 +2044,16 @@ function genRenderForm(){
 }
 
 // ---------- execute 可视化子命令渲染 ----------
+function genPlaceholder(name){
+  const m={
+    "物品数量":"如 64","物品附加值":"如 0","物品组件":"如 {}",
+    "数据值":"如 0","数字":"0","数量":"如 64","时间":"如 1000",
+    "坐标":"x y z","目标位置":"x y z","来源位置":"x y z",
+    "文本":"输入文本","消息":"输入消息","名称":"如 标题",
+    "缩放":"如 1.0","速度":"如 0.1","角度":"如 90","半径":"如 10",
+  };
+  return m[name]||"输入"+name;
+}
 function genExecFieldHtml(p, idx){
   const t=p.type;
   if(t==="target"){
@@ -2026,22 +2069,23 @@ function genExecFieldHtml(p, idx){
 }
 
 function genRenderExecForm(body){
-  let html=`<div style="font-size:13px;color:var(--ink-soft);margin-bottom:4px">通过下方的子命令可视化拼接，无需手写 execute 语法：</div>`;
+  let html=`<div class="gen-exec-tip">通过下方的子命令可视化拼接，无需手写 execute 语法：</div>`;
   GEN_EXEC_SUBS.forEach((sub,si)=>{
     const def=GEN_EXEC_SUB.find(d=>d.type===sub.type)||GEN_EXEC_SUB[0];
-    html+=`<div class="gen-exec-sub" data-si="${si}" style="border:1px solid var(--line);border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:8px;background:var(--bg)">`;
-    html+=`<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-      <select data-si="${si}" data-role="type" onchange="genExecType(this)" style="flex:1;min-width:160px">${GEN_EXEC_SUB.map(d=>`<option value="${d.type}" ${d.type===sub.type?"selected":""}>${d.label}</option>`).join("")}</select>
-      <button type="button" class="go-copy" onclick="genExecDel(${si})" style="font-size:12px;padding:6px 10px">删除</button>
+    html+=`<div class="gen-exec-sub" data-si="${si}">`;
+    html+=`<div class="gen-exec-head">
+      <span class="gen-exec-idx">${si+1}</span>
+      <select class="gen-exec-type" data-si="${si}" data-role="type" onchange="genExecType(this)">${GEN_EXEC_SUB.map(d=>`<option value="${d.type}" ${d.type===sub.type?"selected":""}>${d.label}</option>`).join("")}</select>
+      <button type="button" class="gen-exec-del" onclick="genExecDel(${si})">✕ 删除</button>
     </div>`;
-    html+=`<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px">`;
+    html+=`<div class="gen-exec-fields">`;
     def.params.forEach((p,i)=>{
-      html+=`<div class="gen-field" style="gap:4px"><label style="font-size:12px">${p.name}</label>${genExecFieldHtml(p,i)}</div>`;
+      html+=`<div class="gen-field"><label>${p.name}</label>${genExecFieldHtml(p,i)}</div>`;
     });
     html+=`</div></div>`;
   });
-  html+=`<button type="button" class="go-copy" onclick="genExecAdd()" style="align-self:flex-start;font-size:12px;padding:6px 12px">＋ 添加子命令</button>`;
-  html+=`<div class="gen-field" style="margin-top:4px"><label>run 执行的命令 <span style="color:var(--ink-soft);font-weight:400">(如 summon zombie)</span></label><input type="text" id="genExecRun" value="${GEN_EXEC_RUN}" oninput="genExecBuild()"></div>`;
+  html+=`<button type="button" class="gen-exec-add" onclick="genExecAdd()">＋ 添加子命令</button>`;
+  html+=`<div class="gen-field gen-exec-run"><label>run 执行的命令 <span class="gf-hint">如 summon zombie</span></label><input type="text" id="genExecRun" value="${GEN_EXEC_RUN}" placeholder="输入要执行的命令" oninput="genExecBuild()"></div>`;
   body.innerHTML=html;
   genExecBuild();
 }
@@ -2154,7 +2198,7 @@ function renderGenerator(){
           <div class="gen-field" style="margin-bottom:0">
             <input type="text" id="genSearch" placeholder="搜索命令..." value="${GEN_QUERY}" oninput="genSetQuery(this.value)">
           </div>
-          <div id="genCmdList" style="display:flex;flex-direction:column;gap:6px;max-height:calc(100vh - 280px);overflow-y:auto;padding-right:4px"></div>
+          <div id="genCmdList" class="gen-cmd-list"></div>
         </div>
         <div class="gen-panel">
           <div class="gen-panel-head" id="genHead"></div>
