@@ -164,6 +164,11 @@
   .page-head h2{font-size:26px;color:var(--blue-900)}
   .page-head .tag{font-size:12px;color:var(--blue-600);background:var(--blue-100);padding:3px 10px;border-radius:999px}
   .list-head{font-size:13px;color:var(--ink-soft);margin-bottom:14px}
+  .music-placeholder{background:var(--card);border:1px dashed var(--blue-300);border-radius:16px;padding:60px 24px;text-align:center;box-shadow:var(--shadow)}
+  .music-placeholder .mp-ic{font-size:52px;margin-bottom:16px;animation:mpBounce 1.6s ease-in-out infinite}
+  .music-placeholder h3{font-size:20px;color:var(--blue-900);margin-bottom:8px}
+  .music-placeholder p{font-size:13.5px;color:var(--ink-soft)}
+  @keyframes mpBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
   .list{display:flex;flex-direction:column;gap:12px}
   .list-item{
     background:var(--card);border:1px solid var(--line);border-radius:14px;
@@ -1068,6 +1073,7 @@
         <a data-nav="idquery" onclick="go('idquery')" class="">ID查询</a>
         <a data-nav="seedmap" onclick="go('seedmap')" class="">种子图</a>
         <a data-nav="ai" onclick="go('ai')" class="active">AI写指令</a>
+        <a data-nav="music" onclick="go('music')" class="">指令音乐</a>
         <a data-nav="about" onclick="go('about')" class="">关于</a>
         <a data-nav="tools" onclick="go('tools')" class="">好用工具</a>
         <a data-nav="wiki" onclick="go('services')" class="">第三方服务</a>
@@ -2537,6 +2543,22 @@ function renderAbout(){
   setSideActive("about");
 }
 
+// 指令音乐（占位，正在建设中）
+function renderMusic(){
+  view.innerHTML = `
+    <div class="page-head">
+      <h2>指令音乐</h2>
+      <span class="tag">建设中</span>
+    </div>
+    <div class="list-head">用指令演奏音乐，敬请期待</div>
+    <div class="music-placeholder">
+      <div class="mp-ic">🎵</div>
+      <h3>阿巴阿巴正在努力中~</h3>
+      <p>指令音乐功能正在建设中，沈姐姐正在努力开发，很快就能上线啦！</p>
+    </div>`;
+  setSideActive("music");
+}
+
 // 第三方服务列表（可扩展，往 SERVICES 数组加数据即可）
 const SERVICES = [
   { icon:"assets/wiki_logo.png", name:"Minecraft Wiki", desc:"中文 Minecraft 官方 Wiki，查询方块、物品、生物与指令的权威资料。", url:"https://zh.minecraft.wiki/" }
@@ -3196,6 +3218,7 @@ function go(key, cat, idx){
   else if(key==="idquery"){ renderIdQuery(); }
   else if(key==="seedmap"){ renderSeedMap(); }
   else if(key==="ai"){ renderAI(); }
+  else if(key==="music"){ renderMusic(); }
   else if(key==="about"){ renderAbout(); }
   else if(key==="services"){ renderServices(); }
   else if(key==="tools"){ renderTools(); }
