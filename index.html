@@ -106,10 +106,13 @@
   .side-nav{display:flex;flex-direction:column;gap:4px}
   .side-nav a{
     text-decoration:none;color:var(--ink-soft);font-size:14px;
-    padding:10px 12px;border-radius:10px;transition:.2s;cursor:pointer;
+    padding:9px 12px;border-radius:10px;transition:.2s;cursor:pointer;
+    display:flex;align-items:center;gap:10px;
   }
+  .side-nav a img{width:26px;height:26px;border-radius:7px;object-fit:cover;flex:none;box-shadow:0 2px 6px -2px rgba(23,84,148,.35)}
   .side-nav a:hover{color:var(--blue-600);background:var(--blue-50)}
   .side-nav a.active{color:#fff;background:var(--blue-600);box-shadow:0 6px 14px -6px rgba(29,111,209,.5)}
+  .side-nav a.active img{box-shadow:0 2px 8px -2px rgba(0,0,0,.35)}
 
   /* ---------- Menus (vertical) ---------- */
   .menu{display:flex;flex-direction:column;gap:4px}
@@ -1065,19 +1068,19 @@
     <div class="side-block">
       <h4>导航</h4>
       <nav class="side-nav">
-        <a data-nav="home" onclick="go('home')" class="">首页</a>
-        <a data-nav="tech" onclick="go('tech')" class="">基础指令语法</a>
-        <a data-nav="target" onclick="go('target')" class="">目标选择器</a>
-        <a data-nav="product" onclick="go('product')" class="">成品指令</a>
-        <a data-nav="generator" onclick="go('generator')" class="">指令生成器</a>
-        <a data-nav="idquery" onclick="go('idquery')" class="">ID查询</a>
-        <a data-nav="seedmap" onclick="go('seedmap')" class="">种子图</a>
-        <a data-nav="ai" onclick="go('ai')" class="active">AI写指令</a>
-        <a data-nav="music" onclick="go('music')" class="">指令音乐</a>
-        <a data-nav="about" onclick="go('about')" class="">关于</a>
-        <a data-nav="tools" onclick="go('tools')" class="">好用工具</a>
-        <a data-nav="wiki" onclick="go('services')" class="">第三方服务</a>
-        <a data-nav="favs" onclick="go('favs')" class="">我的收藏</a>
+        <a data-nav="home" onclick="go('home')" class=""><img src="assets/brand_banner.png" alt="">首页</a>
+        <a data-nav="tech" onclick="go('tech')" class=""><img src="assets/cat_basic.png" alt="">基础指令语法</a>
+        <a data-nav="target" onclick="go('target')" class=""><img src="assets/cat_target.jpg" alt="">目标选择器</a>
+        <a data-nav="product" onclick="go('product')" class=""><img src="assets/cat_minigame.png" alt="">成品指令</a>
+        <a data-nav="generator" onclick="go('generator')" class=""><img src="assets/cat_generator.jpg" alt="">指令生成器</a>
+        <a data-nav="idquery" onclick="go('idquery')" class=""><img src="assets/cat_idquery_1.jpg" alt="">ID查询</a>
+        <a data-nav="seedmap" onclick="go('seedmap')" class=""><img src="assets/cat_redstone2.png" alt="">种子图</a>
+        <a data-nav="ai" onclick="go('ai')" class="active"><img src="assets/cat_ai_1.jpg" alt="">AI写指令</a>
+        <a data-nav="music" onclick="go('music')" class=""><img src="assets/cat_building.png" alt="">指令音乐</a>
+        <a data-nav="about" onclick="go('about')" class=""><img src="assets/about_art.png" alt="">关于</a>
+        <a data-nav="tools" onclick="go('tools')" class=""><img src="assets/tools_icon.png" alt="">好用工具</a>
+        <a data-nav="wiki" onclick="go('services')" class=""><img src="assets/wiki_logo.png" alt="">第三方服务</a>
+        <a data-nav="favs" onclick="go('favs')" class=""><img src="assets/cat_survival.png" alt="">我的收藏</a>
       </nav>
     </div>
 
