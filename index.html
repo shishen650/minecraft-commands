@@ -164,6 +164,11 @@
   .page-head h2{font-size:26px;color:var(--blue-900)}
   .page-head .tag{font-size:12px;color:var(--blue-600);background:var(--blue-100);padding:3px 10px;border-radius:999px}
   .list-head{font-size:13px;color:var(--ink-soft);margin-bottom:14px}
+  .music-placeholder{background:var(--card);border:1px dashed var(--blue-300);border-radius:16px;padding:60px 24px;text-align:center;box-shadow:var(--shadow)}
+  .music-placeholder .mp-ic{font-size:52px;margin-bottom:16px;animation:mpBounce 1.6s ease-in-out infinite}
+  .music-placeholder h3{font-size:20px;color:var(--blue-900);margin-bottom:8px}
+  .music-placeholder p{font-size:13.5px;color:var(--ink-soft)}
+  @keyframes mpBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
   .list{display:flex;flex-direction:column;gap:12px}
   .list-item{
     background:var(--card);border:1px solid var(--line);border-radius:14px;
@@ -1060,14 +1065,15 @@
     <div class="side-block">
       <h4>导航</h4>
       <nav class="side-nav">
-        <a data-nav="home" onclick="go('home')" class="active">首页</a>
+        <a data-nav="home" onclick="go('home')" class="">首页</a>
         <a data-nav="tech" onclick="go('tech')" class="">基础指令语法</a>
         <a data-nav="target" onclick="go('target')" class="">目标选择器</a>
         <a data-nav="product" onclick="go('product')" class="">成品指令</a>
         <a data-nav="generator" onclick="go('generator')" class="">指令生成器</a>
         <a data-nav="idquery" onclick="go('idquery')" class="">ID查询</a>
         <a data-nav="seedmap" onclick="go('seedmap')" class="">种子图</a>
-        <a data-nav="ai" onclick="go('ai')" class="">AI写指令</a>
+        <a data-nav="ai" onclick="go('ai')" class="active">AI写指令</a>
+        <a data-nav="music" onclick="go('music')" class="">指令音乐</a>
         <a data-nav="about" onclick="go('about')" class="">关于</a>
         <a data-nav="tools" onclick="go('tools')" class="">好用工具</a>
         <a data-nav="wiki" onclick="go('services')" class="">第三方服务</a>
@@ -1085,182 +1091,60 @@
   <!-- 右侧内容视图容器 -->
   <main class="content">
     <div class="wrap view-fade" id="view">
-    <section class="home-hero">
-      <img class="hero-img" src="assets/hero_bg.png" alt="hero">
-      <div class="hero-ov"></div>
-      <div class="hero-in">
-        <h1>用 <em>指令</em> 创造<br>属于你的世界</h1>
-        <p>共收录 101 条指令，每个都有独立页面。点击下方分类卡片，浏览对应指令并查看指令与原理。</p>
-        <div class="hero-stats">
-          <div><b>99</b><span>指令技术</span></div>
-          <div><b>2</b><span>成品指令</span></div>
-          <div><b>2</b><span>分类菜单</span></div>
-        </div>
-      </div>
-    </section>
-    <div class="home-cards">
-      <div class="home-card" onclick="go('tech','基岩版指令')">
-          <div class="ic"><img src="assets/cat_basic.png" alt="基岩版指令大全"></div>
-          <h3>基岩版指令大全 <span class="cnt">99</span></h3>
-          <p>从 Minecraft Wiki 抓取的 99 个基岩版指令完整语法与含义</p>
-        </div><div class="home-card" onclick="go('product','小游戏')">
-          <div class="ic"><img src="assets/cat_minigame.png" alt="小游戏成品"></div>
-          <h3>小游戏成品 <span class="cnt">2</span></h3>
-          <p>可直接使用的跑酷、PVP、计分等成品指令</p>
-        </div>
-      
-        <div class="home-card" onclick="go('generator')">
-          <div class="ic"><img src="assets/cat_generator.jpg" alt="指令生成器"></div>
-          <h3>指令生成器 <span class="cnt">77</span></h3>
-          <p>可视化选择参数，自动拼接生成 Minecraft 指令，无需手写语法</p>
-        </div>
-        <div class="home-card" onclick="go('idquery')">
-          <div class="ic"><img src="assets/cat_idquery_1.jpg" alt="ID查询"></div>
-          <h3>ID查询 <span class="cnt">1万+</span></h3>
-          <p>查询基岩版全部方块、物品、实体等 ID，支持搜索与一键复制</p>
-        </div>
-        <div class="home-card" onclick="go('target')">
-          <div class="ic"><img src="assets/cat_target.jpg" alt="目标选择器"></div>
-          <h3>目标选择器 <span class="cnt">多种</span></h3>
-          <p>@p、@a、@e 等目标选择器变量与参数，快速生成目标表达式</p>
-        </div>
-        <div class="home-card" onclick="go('ai')">
-          <div class="ic"><img src="assets/cat_ai_1.jpg" alt="AI写指令"></div>
-          <h3>AI写指令 <span class="cnt">AI</span></h3>
-          <p>用自然语言描述需求，AI 帮你生成对应的 Minecraft 指令</p>
-        </div>
+    <div class="page-head">
+      <h2>AI写指令</h2>
+      <span class="tag">AI Command</span>
     </div>
-    
-    <div class="daily-card" onclick="go('tech','基岩版指令','12')">
-      <div class="dc-badge">🎲</div>
-      <div class="dc-tx">
-        <span class="dc-tag">今日推荐 · 指令技术 · 基岩版指令</span>
-        <h3>controlscheme</h3>
-        <div class="dc-cmd">controlscheme <players: target=""> clear
-controlscheme <players: target=""> set <control scheme:="" controlscheme=""></control></players:></players:></div>
-      </div>
-      <div class="dc-go">→</div>
-    </div>
-    
-    <div class="recent-block">
-      <div class="rb-head">
-        <h3>🕘 最近浏览</h3>
-        <button class="rb-clear" onclick="clearHistory()">清空记录</button>
-      </div>
-      <div class="recent-list">
-        
-          <div class="recent-item" onclick="go('tech','基岩版指令','2')">
-            <div class="ri-ic">技</div>
-            <div class="ri-tx">
-              <h4>aimassist</h4>
-              <span>aimassist <players: target=""> clear
-aimassist <players: target=""> set [x angle: float] [y angle: float] [max distance: float] [target mode: AimAssistTargetMode] [preset id: string]</players:></players:></span>
-            </div>
-            <div class="ri-time">12 小时前</div>
+    <div class="detail-card" style="padding:20px">
+      <div class="ai-layout">
+        <div class="ai-settings">
+          <h5>AI 设置</h5>
+          <div class="ai-field">
+            <label>模型服务商</label>
+            <select id="aiProvider" onchange="aiProviderChanged()">
+              <option value="deepseek">DeepSeek</option><option value="volc" selected="">火山方舟</option><option value="qwen">通义千问</option><option value="kimi">Kimi</option><option value="zhipu">智谱清言</option><option value="custom">自定义</option>
+            </select>
           </div>
-          <div class="recent-item" onclick="go('tech','基岩版指令','1')">
-            <div class="ri-ic">技</div>
-            <div class="ri-tx">
-              <h4>ability</h4>
-              <span>ability <player: target=""> <ability: ability=""> <value: boolean="">
-ability <player: target=""> [ability: Ability]</player:></value:></ability:></player:></span>
-            </div>
-            <div class="ri-time">12 小时前</div>
+          <div class="ai-field" id="aiBaseField" style="display:none">
+            <label>Base URL</label>
+            <input type="text" id="aiBase" placeholder="https://api.example.com/v1" value="https://ark.cn-beijing.volces.com/api/v3">
           </div>
-          <div class="recent-item" onclick="go('tech','基岩版指令','0')">
-            <div class="ri-ic">技</div>
-            <div class="ri-tx">
-              <h4>?</h4>
-              <span>help <command: commandname="">
-? <command: commandname="">
-help [page: int]
-? [page: int]</command:></command:></span>
-            </div>
-            <div class="ri-time">12 小时前</div>
+          <div class="ai-field" id="aiModelField" style="display:none">
+            <label>模型名</label>
+            <input type="text" id="aiModel" placeholder="model-name" value="doubao-seed-2-1-pro-260628">
           </div>
-          <div class="recent-item" onclick="go('tech','基岩版指令','20')">
-            <div class="ri-ic">技</div>
-            <div class="ri-tx">
-              <h4>effect</h4>
-              <span>effect <player: target=""> <effect: effect=""> [seconds: int]
-effect <player: target=""> <effect: effect=""> <seconds: int=""> [amplifier: int]
-effect <player: target=""> <effect: effect=""> <seconds: int=""> <amplifier: int=""> [hideParticles: Boolean]
-effect <player: target=""> <effect: effect=""> infinite [amplifier: int]
-effect <player: target=""> <effect: effect=""> infinite <amplifier: int=""> [hideParticles: Boolean]
-effect <player: target=""> clear [effect: Effect]</player:></amplifier:></effect:></player:></effect:></player:></amplifier:></seconds:></effect:></player:></seconds:></effect:></player:></effect:></player:></span>
-            </div>
-            <div class="ri-time">13 小时前</div>
+          <div class="ai-field">
+            <label>API 密钥</label>
+            <input type="password" id="aiKey" placeholder="sk-..." value="" autocomplete="off">
           </div>
-          <div class="recent-item" onclick="go('tech','基岩版指令','19')">
-            <div class="ri-ic">技</div>
-            <div class="ri-tx">
-              <h4>editor-allowlist</h4>
-              <span>editor-allowlist reload</span>
-            </div>
-            <div class="ri-time">13 小时前</div>
+          <div class="ai-btns">
+            <button class="btn" onclick="aiSaveConfig()">保存</button>
+            <button class="btn ghost" onclick="aiClearConfig()">清除</button>
           </div>
-          <div class="recent-item" onclick="go('tech','基岩版指令','18')">
-            <div class="ri-ic">技</div>
-            <div class="ri-tx">
-              <h4>difficulty</h4>
-              <span>difficulty <difficulty: difficulty="">
-difficulty <difficulty: int=""></difficulty:></difficulty:></span>
-            </div>
-            <div class="ri-time">13 小时前</div>
+          <div class="ai-save-status" id="aiSaveStatus">已保存 · 密钥存于本机浏览器</div>
+          <div class="ai-kb-box ready" id="aiKbBox">
+            <div class="ai-kb-head"><span class="ai-kb-dot" id="aiKbDot"></span><b>Wiki 指令知识库</b></div>
+            <div class="ai-kb-status" id="aiKbStatus">知识库已就绪（234 条指令知识）</div>
+            <div class="ai-kb-desc">AI 生成时会自动检索相关知识注入上下文，提升指令准确性。</div>
           </div>
-          <div class="recent-item" onclick="go('tech','基岩版指令','17')">
-            <div class="ri-ic">技</div>
-            <div class="ri-tx">
-              <h4>dialogue</h4>
-              <span>dialogue open <npc: target=""> <player: target=""> [sceneName: string]
-dialogue change <npc: target=""> <scenename: string=""> [players: target]</scenename:></npc:></player:></npc:></span>
-            </div>
-            <div class="ri-time">13 小时前</div>
+          <div class="ai-hint">
+            密钥仅保存在<b>你自己的浏览器</b>（localStorage），调用时直接发送给所选模型服务商的官方接口，不会上传到本站任何服务器（本站无服务器）。建议在个人设备上使用，避免在公用电脑保存。
           </div>
-          <div class="recent-item" onclick="go('tech','基岩版指令','16')">
-            <div class="ri-ic">技</div>
-            <div class="ri-tx">
-              <h4>deop</h4>
-              <span>deop <player: target=""></player:></span>
+        </div>
+        <div class="ai-chat">
+          <div class="ai-chat-head">
+            <b>AI 助手</b>
+            <div class="ai-modes">
+              <div class="ai-mode-slider" style="transform: translateX(0px); width: 74px;"></div>
+              <button class="ai-mode-btn on" onclick="aiSetMode('generate')">生成指令</button><button class="ai-mode-btn " onclick="aiSetMode('explain')">解释指令</button><button class="ai-mode-btn " onclick="aiSetMode('optimize')">优化指令</button>
             </div>
-            <div class="ri-time">13 小时前</div>
           </div>
-          <div class="recent-item" onclick="go('tech','基岩版指令','15')">
-            <div class="ri-ic">技</div>
-            <div class="ri-tx">
-              <h4>dedicatedwsserver</h4>
-              <span>wsserver <serveruri: text="">
-connect <serveruri: text="">
-dedicatedwsserver <server-address> <port></port></server-address></serveruri:></serveruri:></span>
-            </div>
-            <div class="ri-time">13 小时前</div>
+          <div class="ai-msgs" id="aiMsgs"><div class="ai-welcome">你好～我是 <b>AI 指令助手</b>。<br>选择上方模式（生成 / 解释 / 优化），在下方输入内容，我就能帮你写出或打理 Minecraft 指令。</div></div>
+          <div class="ai-input">
+            <textarea id="aiInput" placeholder="描述你想要的效果，例如：给玩家附魔一把锋利5的钻石剑…" onkeydown="aiInputKey(event)"></textarea>
+            <button class="send-btn" id="aiSendBtn" onclick="aiSend()">发送</button>
           </div>
-          <div class="recent-item" onclick="go('tech','基岩版指令','14')">
-            <div class="ri-ic">技</div>
-            <div class="ri-tx">
-              <h4>daylock</h4>
-              <span>daylock [lock: Boolean]</span>
-            </div>
-            <div class="ri-time">13 小时前</div>
-          </div>
-          <div class="recent-item" onclick="go('tech','基岩版指令','13')">
-            <div class="ri-ic">技</div>
-            <div class="ri-tx">
-              <h4>damage</h4>
-              <span>damage <target: target=""> <amount: int=""> <cause: damagecause=""> entity <damager: target="">
-damage <target: target=""> <amount: int=""> [cause: DamageCause]</amount:></target:></damager:></cause:></amount:></target:></span>
-            </div>
-            <div class="ri-time">13 小时前</div>
-          </div>
-          <div class="recent-item" onclick="go('tech','基岩版指令','12')">
-            <div class="ri-ic">技</div>
-            <div class="ri-tx">
-              <h4>controlscheme</h4>
-              <span>controlscheme <players: target=""> clear
-controlscheme <players: target=""> set <control scheme:="" controlscheme=""></control></players:></players:></span>
-            </div>
-            <div class="ri-time">13 小时前</div>
-          </div>
+        </div>
       </div>
     </div></div>
   </main>
@@ -2659,6 +2543,22 @@ function renderAbout(){
   setSideActive("about");
 }
 
+// 指令音乐（占位，正在建设中）
+function renderMusic(){
+  view.innerHTML = `
+    <div class="page-head">
+      <h2>指令音乐</h2>
+      <span class="tag">建设中</span>
+    </div>
+    <div class="list-head">用指令演奏音乐，敬请期待</div>
+    <div class="music-placeholder">
+      <div class="mp-ic">🎵</div>
+      <h3>阿巴阿巴正在努力中~</h3>
+      <p>指令音乐功能正在建设中，沈姐姐正在努力开发，很快就能上线啦！</p>
+    </div>`;
+  setSideActive("music");
+}
+
 // 第三方服务列表（可扩展，往 SERVICES 数组加数据即可）
 const SERVICES = [
   { icon:"assets/wiki_logo.png", name:"Minecraft Wiki", desc:"中文 Minecraft 官方 Wiki，查询方块、物品、生物与指令的权威资料。", url:"https://zh.minecraft.wiki/" }
@@ -3318,6 +3218,7 @@ function go(key, cat, idx){
   else if(key==="idquery"){ renderIdQuery(); }
   else if(key==="seedmap"){ renderSeedMap(); }
   else if(key==="ai"){ renderAI(); }
+  else if(key==="music"){ renderMusic(); }
   else if(key==="about"){ renderAbout(); }
   else if(key==="services"){ renderServices(); }
   else if(key==="tools"){ renderTools(); }
