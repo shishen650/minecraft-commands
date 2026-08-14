@@ -92,8 +92,14 @@
   .brand .cube{
     width:46px;height:46px;border-radius:13px;flex:none;overflow:hidden;
     box-shadow:0 6px 16px -6px rgba(29,111,209,.6);
+    transform-style:preserve-3d;
+    animation:cubeFloat 4.5s ease-in-out infinite;
   }
   .brand .cube img{width:100%;height:100%;object-fit:cover;display:block}
+  @keyframes cubeFloat{
+    0%,100%{transform:translateY(0) rotateY(0deg)}
+    50%{transform:translateY(-4px) rotateY(8deg)}
+  }
   .brand b{font-size:19px;font-weight:700;letter-spacing:1.5px;color:var(--blue-900);display:block;background:linear-gradient(120deg,var(--blue-700),var(--blue-500));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
   .brand span{font-size:10.5px;letter-spacing:.5px;color:var(--ink-soft);display:block;margin-top:2px}
   .side-block h4{
@@ -137,10 +143,14 @@
     background:var(--panel);border:1px solid var(--line);box-shadow:var(--shadow);
     padding:48px 44px;min-height:300px;display:flex;flex-direction:column;justify-content:center;
   }
-  .home-hero .hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+  .home-hero .hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;
+    animation:heroKen 18s ease-in-out infinite alternate}
   .home-hero .hero-ov{position:absolute;inset:0;z-index:1;
     background:var(--hero-ov)}
-  .home-hero .hero-in{position:relative;z-index:2;max-width:560px}
+  .home-hero .hero-in{position:relative;z-index:2;max-width:560px;
+    animation:heroFloat 5s ease-in-out infinite}
+  @keyframes heroKen{from{transform:scale(1)}to{transform:scale(1.08)}}
+  @keyframes heroFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
   .home-hero h1{font-size:clamp(28px,4.5vw,42px);line-height:1.15;color:var(--blue-900);letter-spacing:.5px}
   .home-hero h1 em{font-style:normal;color:var(--blue-600)}
   .home-hero p{color:var(--ink-soft);margin-top:14px;font-size:15px;line-height:1.8;max-width:520px}
@@ -151,16 +161,18 @@
   .home-card{
     background:var(--card);border:1px solid var(--line);border-radius:16px;
     padding:22px;box-shadow:var(--shadow);cursor:pointer;transition:.25s;
+    transform-style:preserve-3d;will-change:transform;
   }
   .home-card:hover{transform:translateY(-4px);border-color:var(--blue-300);box-shadow:0 18px 40px -16px rgba(23,84,148,.28)}
   .home-card .ic{
     width:52px;height:52px;border-radius:13px;overflow:hidden;margin-bottom:14px;
     background:var(--blue-50);border:1px solid var(--line);display:grid;place-items:center;
+    transform:translateZ(22px) scale(1.02);
   }
   .home-card .ic img{width:100%;height:100%;object-fit:cover;display:block}
-  .home-card h3{font-size:17px;color:var(--blue-900);display:flex;align-items:center;gap:8px}
+  .home-card h3{font-size:17px;color:var(--blue-900);display:flex;align-items:center;gap:8px;transform:translateZ(14px)}
   .home-card h3 .cnt{font-size:11px;background:var(--blue-100);color:var(--blue-600);padding:2px 9px;border-radius:999px;font-weight:600}
-  .home-card p{font-size:13px;color:var(--ink-soft);margin-top:8px;line-height:1.7}
+  .home-card p{font-size:13px;color:var(--ink-soft);margin-top:8px;line-height:1.7;transform:translateZ(8px)}
 
   /* ---------- List page ---------- */
   .page-head{display:flex;align-items:center;gap:14px;margin-bottom:24px}
@@ -835,6 +847,7 @@
     margin-top:26px;background:var(--card);border:1px solid var(--line);border-radius:16px;
     padding:20px 24px;display:flex;align-items:center;gap:18px;box-shadow:var(--shadow);
     cursor:pointer;transition:.25s;position:relative;overflow:hidden;
+    transform-style:preserve-3d;will-change:transform;
   }
   .daily-card::before{
     content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(75,147,224,.10),transparent 60%);
@@ -844,12 +857,13 @@
   .daily-card .dc-badge{
     flex:none;width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,var(--blue-500),var(--blue-700));
     color:#fff;display:grid;place-items:center;font-size:24px;box-shadow:0 8px 18px -6px rgba(29,111,209,.5);
+    transform:translateZ(18px);
   }
-  .daily-card .dc-tx{flex:1;min-width:0}
+  .daily-card .dc-tx{flex:1;min-width:0;transform:translateZ(10px)}
   .daily-card .dc-tx .dc-tag{font-size:11px;color:var(--blue-600);background:var(--blue-100);padding:2px 10px;border-radius:999px;font-weight:600}
   .daily-card .dc-tx h3{font-size:17px;color:var(--blue-900);margin-top:6px}
   .daily-card .dc-tx .dc-cmd{font-size:13px;color:var(--ink-soft);margin-top:6px;font-family:var(--mono);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .daily-card .dc-go{flex:none;color:var(--blue-400);font-size:20px}
+  .daily-card .dc-go{flex:none;color:var(--blue-400);font-size:20px;transform:translateZ(14px)}
 
   /* ---------- 首页最近浏览 ---------- */
   .recent-block{margin-top:30px}
@@ -3497,6 +3511,31 @@ applyTheme(localStorage.getItem(THEME_KEY) || "light");
 buildSideMenu();
 if(!parseHash()){ renderHome(); }
 view.classList.add("view-fade");
+
+// 3D 卡片鼠标跟随倾斜
+function initCard3D(){
+  const cards = document.querySelectorAll(".home-card, .daily-card");
+  cards.forEach(card=>{
+    card.addEventListener("mousemove", e=>{
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width;
+      const y = (e.clientY - r.top) / r.height;
+      const rx = (0.5 - y) * 10;
+      const ry = (x - 0.5) * 10;
+      card.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-4px)`;
+    });
+    card.addEventListener("mouseleave", ()=>{
+      card.style.transform = "";
+    });
+  });
+}
+initCard3D();
+// 页面切换后重新绑定 3D 效果
+const _go3d = go;
+go = function(key, cat, idx){
+  _go3d(key, cat, idx);
+  setTimeout(initCard3D, 60);
+};
 document.getElementById("searchInput").addEventListener("input", ()=>{
   const q = document.getElementById("searchInput").value.trim();
   if(q){ renderSearch(q); }
