@@ -1023,7 +1023,7 @@
           from { opacity: 0; transform: scale(0.95); }
           to { opacity: 1; transform: scale(1); }
         }
-      </style></head>
+      </style><script src="assets/gen_commands.js"></script></head>
 <body style="">
 
 <!-- 移动端顶栏 -->
@@ -1062,12 +1062,12 @@
       <nav class="side-nav">
         <a data-nav="home" onclick="go('home')" class="">首页</a>
         <a data-nav="tech" onclick="go('tech')" class="">基础指令语法</a>
-        <a data-nav="target" onclick="go('target')" class="active">目标选择器</a>
+        <a data-nav="target" onclick="go('target')" class="">目标选择器</a>
         <a data-nav="product" onclick="go('product')" class="">成品指令</a>
         <a data-nav="generator" onclick="go('generator')" class="">指令生成器</a>
         <a data-nav="idquery" onclick="go('idquery')" class="">ID查询</a>
         <a data-nav="seedmap" onclick="go('seedmap')" class="">种子图</a>
-        <a data-nav="ai" onclick="go('ai')" class="">AI写指令</a>
+        <a data-nav="ai" onclick="go('ai')" class="active">AI写指令</a>
         <a data-nav="about" onclick="go('about')" class="">关于</a>
         <a data-nav="tools" onclick="go('tools')" class="">好用工具</a>
         <a data-nav="wiki" onclick="go('services')" class="">第三方服务</a>
@@ -1086,659 +1086,61 @@
   <main class="content">
     <div class="wrap view-fade" id="view">
     <div class="page-head">
-      <h2>目标选择器</h2>
-      <span class="tag">Target Selector</span>
+      <h2>AI写指令</h2>
+      <span class="tag">AI Command</span>
     </div>
-
-    <div class="ts-hero">
-      <h3>目标选择器（Target Selector）</h3>
-      <p>目标选择器（Target Selector）又名实体选择器（Entity Selector），可在无需指定确切的玩家名称或UUID的情况下在命令中选择任意玩家与实体。目标选择器变量可以选择一个或多个实体，目标选择器参数可以根据特定条件筛选目标。</p>
-      <div class="ts-warn">请注意，Java版和基岩版的目标选择器有较大的区别，部分语法仅适用于两者之一。</div>
-    </div>
-
-    <div class="ts-sec-title">目标选择器变量 <span class="ts-sub">点击卡片查看详细说明</span></div>
-    <div class="ts-vars">
-    <div class="ts-var" onclick="toggleTsVar(0)">
-      <div class="tv-sel">@p</div>
-      <div class="tv-name">距离最近的玩家</div>
-      <span class="tv-tag">通用</span>
-    </div>
-    <div class="ts-var" onclick="toggleTsVar(1)">
-      <div class="tv-sel">@r</div>
-      <div class="tv-name">随机玩家</div>
-      <span class="tv-tag">通用</span>
-    </div>
-    <div class="ts-var" onclick="toggleTsVar(2)">
-      <div class="tv-sel">@a</div>
-      <div class="tv-name">所有玩家</div>
-      <span class="tv-tag">通用</span>
-    </div>
-    <div class="ts-var" onclick="toggleTsVar(3)">
-      <div class="tv-sel">@e</div>
-      <div class="tv-name">所有实体</div>
-      <span class="tv-tag">通用</span>
-    </div>
-    <div class="ts-var" onclick="toggleTsVar(4)">
-      <div class="tv-sel">@s</div>
-      <div class="tv-name">命令的执行者</div>
-      <span class="tv-tag">通用</span>
-    </div>
-    <div class="ts-var" onclick="toggleTsVar(5)">
-      <div class="tv-sel">@n</div>
-      <div class="tv-name">最近的实体</div>
-      <span class="tv-tag">通用</span>
-    </div>
-    <div class="ts-var" onclick="toggleTsVar(6)">
-      <div class="tv-sel">@c</div>
-      <div class="tv-name">自己的智能体</div>
-      <span class="tv-tag edu">教育版</span>
-    </div>
-    <div class="ts-var" onclick="toggleTsVar(7)">
-      <div class="tv-sel">@v</div>
-      <div class="tv-name">所有智能体</div>
-      <span class="tv-tag edu">教育版</span>
-    </div>
-    <div class="ts-var" onclick="toggleTsVar(8)">
-      <div class="tv-sel">@initiator</div>
-      <div class="tv-name">与NPC交互的玩家</div>
-      <span class="tv-tag be">基岩版</span>
-    </div></div>
-    
-    <div class="ts-var-detail" id="tsvd0">
-      <div class="tvd-head">
-        <span class="tvd-sel">@p</span>
-        <span class="tvd-name">距离最近的玩家</span>
-      </div>
-      <p>选择最近的玩家。在服务器控制台中输入，默认基准点为世界出生点。若有多个最近的玩家，与基准点距离完全相同，会选择其中最晚进入服务器的玩家。type参数不适用于@p。在基岩版中，@p只选择活着的玩家。</p>
-    </div>
-    <div class="ts-var-detail" id="tsvd1">
-      <div class="tvd-head">
-        <span class="tvd-sel">@r</span>
-        <span class="tvd-name">随机玩家</span>
-      </div>
-      <p>选择一名随机玩家。在基岩版中，可通过type选择非玩家实体。在Java版中，可通过@e[sort=random,limit=1]随机选择一个实体。在基岩版中，@r只选择活着的实体。</p>
-    </div>
-    <div class="ts-var-detail" id="tsvd2">
-      <div class="tvd-head">
-        <span class="tvd-sel">@a</span>
-        <span class="tvd-name">所有玩家</span>
-      </div>
-      <p>选择所有玩家，无论死活。type参数不适用于@a。</p>
-    </div>
-    <div class="ts-var-detail" id="tsvd3">
-      <div class="tvd-head">
-        <span class="tvd-sel">@e</span>
-        <span class="tvd-name">所有实体</span>
-      </div>
-      <p>选择已加载区块中所有活着的实体（包含玩家）。无法选中濒死的实体。</p>
-    </div>
-    <div class="ts-var-detail" id="tsvd4">
-      <div class="tvd-head">
-        <span class="tvd-sel">@s</span>
-        <span class="tvd-name">命令的执行者</span>
-      </div>
-      <p>只选择1个实体：该命令的执行者，无论是否濒死。若命令执行者为命令方块或服务器控制台执行命令，则此选择器不会选中任何东西。</p>
-    </div>
-    <div class="ts-var-detail" id="tsvd5">
-      <div class="tvd-head">
-        <span class="tvd-sel">@n</span>
-        <span class="tvd-name">最近的实体</span>
-      </div>
-      <p>选择最近的一个实体。无法选中濒死的实体。</p>
-    </div>
-    <div class="ts-var-detail" id="tsvd6">
-      <div class="tvd-head">
-        <span class="tvd-sel">@c</span>
-        <span class="tvd-name">自己的智能体</span>
-      </div>
-      <p>选择自己的智能体。</p>
-    </div>
-    <div class="ts-var-detail" id="tsvd7">
-      <div class="tvd-head">
-        <span class="tvd-sel">@v</span>
-        <span class="tvd-name">所有智能体</span>
-      </div>
-      <p>选择所有的智能体。目标选择器参数可以用于标记所有的智能体。例如，/remove @v将移除所有的智能体。</p>
-    </div>
-    <div class="ts-var-detail" id="tsvd8">
-      <div class="tvd-head">
-        <span class="tvd-sel">@initiator</span>
-        <span class="tvd-name">与NPC交互的玩家</span>
-      </div>
-      <p>选择当前与NPC交互的玩家。对于NPC内置的命令界面，有一个特有的选择器变量为@initiator，用于选择当前与该NPC进行交互（例如打开NPC对话框、使用NPC按钮和关闭NPC对话框）的玩家。如果该选择器用于外置命令，则不会报错，但不会选择任何玩家。</p>
-    </div>
-
-    <div class="ts-sec-title">目标选择器参数 <span class="ts-sub">按类别分组，点击展开</span></div>
-    <div class="ts-groups"><div class="ts-group open">
-      <button class="ts-group-head" onclick="toggleTsGroup(this)">
-        <span class="tg-arrow">▶</span>
-        <span class="tg-name">通过坐标</span>
-        <span class="tg-count">3 项</span>
-      </button>
-      <div class="ts-group-body">
-      <div class="ts-param">
-        <div class="tp-head">
-          <span class="tp-name">x, y, z</span>
-          <span class="tp-title">原点</span>
-          <span class="tp-badge">通用</span>
+    <div class="detail-card" style="padding:20px">
+      <div class="ai-layout">
+        <div class="ai-settings">
+          <h5>AI 设置</h5>
+          <div class="ai-field">
+            <label>模型服务商</label>
+            <select id="aiProvider" onchange="aiProviderChanged()">
+              <option value="deepseek">DeepSeek</option><option value="volc" selected="">火山方舟</option><option value="qwen">通义千问</option><option value="kimi">Kimi</option><option value="zhipu">智谱清言</option><option value="custom">自定义</option>
+            </select>
+          </div>
+          <div class="ai-field" id="aiBaseField" style="display:none">
+            <label>Base URL</label>
+            <input type="text" id="aiBase" placeholder="https://api.example.com/v1" value="https://ark.cn-beijing.volces.com/api/v3">
+          </div>
+          <div class="ai-field" id="aiModelField" style="display:none">
+            <label>模型名</label>
+            <input type="text" id="aiModel" placeholder="model-name" value="doubao-seed-2-1-pro-260628">
+          </div>
+          <div class="ai-field">
+            <label>API 密钥</label>
+            <input type="password" id="aiKey" placeholder="sk-..." value="" autocomplete="off">
+          </div>
+          <div class="ai-btns">
+            <button class="btn" onclick="aiSaveConfig()">保存</button>
+            <button class="btn ghost" onclick="aiClearConfig()">清除</button>
+          </div>
+          <div class="ai-save-status" id="aiSaveStatus">已保存 · 密钥存于本机浏览器</div>
+          <div class="ai-kb-box ready" id="aiKbBox">
+            <div class="ai-kb-head"><span class="ai-kb-dot" id="aiKbDot"></span><b>Wiki 指令知识库</b></div>
+            <div class="ai-kb-status" id="aiKbStatus">知识库已就绪（234 条指令知识）</div>
+            <div class="ai-kb-desc">AI 生成时会自动检索相关知识注入上下文，提升指令准确性。</div>
+          </div>
+          <div class="ai-hint">
+            密钥仅保存在<b>你自己的浏览器</b>（localStorage），调用时直接发送给所选模型服务商的官方接口，不会上传到本站任何服务器（本站无服务器）。建议在个人设备上使用，避免在公用电脑保存。
+          </div>
         </div>
-        <div class="tp-desc">定义目标选择器的原点。这个位置将成为目标选择器原点（不修改命令执行位置），这意味着@p与@n所选择的目标可能发生改变。如果其中任意参数未定义，则默认使用命令执行位置的坐标。在Java版中，如果定义了其中任意一个参数，则此目标选择器不能跨维度选择目标。可用于distance参数或dx、dy和dz参数，以平移选择范围。坐标可以是整数或像12.34这样的小数（具体为双精度浮点数）且不会进行中心校正，这意味着x=0不再自动更正为x=0.5。在基岩版中，波浪号可用于此参数。</div>
-        <div class="ts-examples"><div class="ts-ex">
-      <div class="ex-cmd">@p[x=0,y=0,z=0]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择距离世界中心点最近的玩家。</span></div>
-      <button class="ex-copy" data-cmd="@p[x=0,y=0,z=0]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">@e[limit=3,sort=nearest,dx=10,dz=10]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">在执行位置向东南方向延伸14.14米的范围内，选择距离最近的3个实体。[仅Java版]</span></div>
-      <button class="ex-copy" data-cmd="@e[limit=3,sort=nearest,dx=10,dz=10]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">@e[c=3,x=~10,z=~10]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">从往东南方向延伸14.14米的位置开始，选择距离最近的3个实体。[仅基岩版]</span></div>
-      <button class="ex-copy" data-cmd="@e[c=3,x=~10,z=~10]" onclick="copyCmd(this)">复制</button>
-    </div></div>
+        <div class="ai-chat">
+          <div class="ai-chat-head">
+            <b>AI 助手</b>
+            <div class="ai-modes">
+              <div class="ai-mode-slider" style="transform: translateX(0px); width: 74px;"></div>
+              <button class="ai-mode-btn on" onclick="aiSetMode('generate')">生成指令</button><button class="ai-mode-btn " onclick="aiSetMode('explain')">解释指令</button><button class="ai-mode-btn " onclick="aiSetMode('optimize')">优化指令</button>
+            </div>
+          </div>
+          <div class="ai-msgs" id="aiMsgs"><div class="ai-welcome">你好～我是 <b>AI 指令助手</b>。<br>选择上方模式（生成 / 解释 / 优化），在下方输入内容，我就能帮你写出或打理 Minecraft 指令。</div></div>
+          <div class="ai-input">
+            <textarea id="aiInput" placeholder="描述你想要的效果，例如：给玩家附魔一把锋利5的钻石剑…" onkeydown="aiInputKey(event)"></textarea>
+            <button class="send-btn" id="aiSendBtn" onclick="aiSend()">发送</button>
+          </div>
+        </div>
       </div>
-      <div class="ts-param">
-        <div class="tp-head">
-          <span class="tp-name">distance / r、rm</span>
-          <span class="tp-title">距离</span>
-          <span class="tp-badge jv">Java版</span><span class="tp-badge be">基岩版</span>
-        </div>
-        <div class="tp-desc">距离选择器以原点参数为中心，根据到某点的欧几里得距离过滤目标，形成一个球形选择区。distance为球形选择区范围，只允许使用非负数，支持使用范围表示，以定义球形区域。[仅Java版] r为球形选择区最大半径，只选择所有小于等于R个方块的目标执行命令。[仅基岩版] rm为球形选择区最小半径，只选择所有大于等于RM个方块的目标执行命令。[仅基岩版] 如果原点参数未定义，则相对于命令执行的位置计算。注意，距离参数是一个空间参数，它不能跨维度选择目标。</div>
-        <div class="ts-examples"><div class="ts-ex">
-      <div class="ex-cmd">Java版：@e[distance=10]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有距离执行位置等于10个方块的实体。</span></div>
-      <button class="ex-copy" data-cmd="Java版：@e[distance=10]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">Java版：@e[distance=10..12]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有距离执行位置大于等于10，且小于等于12个方块的实体。</span></div>
-      <button class="ex-copy" data-cmd="Java版：@e[distance=10..12]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">Java版：@e[distance=5..]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有距离执行位置大于等于5个方块的实体。</span></div>
-      <button class="ex-copy" data-cmd="Java版：@e[distance=5..]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">Java版：@e[distance=..15]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有距离执行位置小于等于15个方块的实体。</span></div>
-      <button class="ex-copy" data-cmd="Java版：@e[distance=..15]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">基岩版：@e[r=10.55]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有距离执行位置小于10.55个方块的实体。</span></div>
-      <button class="ex-copy" data-cmd="基岩版：@e[r=10.55]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">基岩版：@e[rm=5]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有距离执行位置大于等于5个方块的实体。</span></div>
-      <button class="ex-copy" data-cmd="基岩版：@e[rm=5]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">基岩版：@e[rm=10,r=12]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有距离执行位置大于等于10，且小于等于12个方块的实体。</span></div>
-      <button class="ex-copy" data-cmd="基岩版：@e[rm=10,r=12]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">基岩版：@e[rm=0]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择当前维度所有的实体。</span></div>
-      <button class="ex-copy" data-cmd="基岩版：@e[rm=0]" onclick="copyCmd(this)">复制</button>
     </div></div>
-      </div>
-      <div class="ts-param">
-        <div class="tp-head">
-          <span class="tp-name">dx, dy, dz</span>
-          <span class="tp-title">体积尺寸</span>
-          <span class="tp-badge">通用</span>
-        </div>
-        <div class="tp-desc">在同一个维度内，选择实体判定箱与指定长方体相交的所有实体。如果没有指定原点参数[x=&lt;值&gt;,y=&lt;值&gt;,z=&lt;值&gt;]，则以命令的执行位置来计算所选长方体区域。这三个参数可以为负数和小数，且都不可以重复使用。取值范围：dx、dy、dz均在double范围内。默认值：如果指定了dx，dy或dz的其中1个或2个，则剩余没有指定的参数默认为0。确定一个长方体区域（该长方体的三边均平行于X、Y、Z轴），选择实体判定箱与此长方体区域相交的所有实体。长方体区域由其顶点的最小坐标和最大坐标（互为对顶点）来确定。简单来说，这个长方体区域是这样计算的：获取执行坐标为(x,y,z)，获取(x+dx,y+dy,z+dz)，这两点可以确定一个长方体，其最小坐标点为(min(x,x+dx),min(y,y+dy),min(z,z+dz))，最大坐标点为(max(x,x+dx),max(y,y+dy),max(z,z+dz))。之后，将该长方体的长宽高朝+x、+y、+z方向分别扩展一格，得到的长方体即为指定的长方体区域。所选长方体在3个轴方向上的边长总是为：|dx|+1、|dy|+1、|dz|+1。</div>
-        <div class="ts-examples"><div class="ts-ex">
-      <div class="ex-cmd">@e[x=1,y=2,z=3,dx=4,dy=5,dz=6]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择判定箱与区域(1, 2, 3)至(6, 8, 10)有重叠的所有实体。</span></div>
-      <button class="ex-copy" data-cmd="@e[x=1,y=2,z=3,dx=4,dy=5,dz=6]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">@e[x=1,y=2,z=3,dx=0,dy=0,dz=0]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择判定箱和方块坐标区域(1, 2, 3)至(2, 3, 4)有重叠的所有实体。</span></div>
-      <button class="ex-copy" data-cmd="@e[x=1,y=2,z=3,dx=0,dy=0,dz=0]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">@e[x=0,y=0,z=0,dx=-1,dy=-2,dz=-3]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择判定箱和方块坐标区域(1, 1, 1)至(-1, -2, -3)有重叠的所有实体。</span></div>
-      <button class="ex-copy" data-cmd="@e[x=0,y=0,z=0,dx=-1,dy=-2,dz=-3]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">@a[x=0,y=0,z=0,dx=-0.5,dy=0,dz=0.5]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择判定箱和区域{(x,y,z)|x∈[−0.5,1),y∈[0,1),z∈[0,1.5)}有重叠的所有玩家。</span></div>
-      <button class="ex-copy" data-cmd="@a[x=0,y=0,z=0,dx=-0.5,dy=0,dz=0.5]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">@s[y=320,dy=100]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">该命令的X、Z坐标和命令执行坐标相同。如果执行者判定箱与世界最高点的方块上空101格内的区域相交，则选择该执行者。</span></div>
-      <button class="ex-copy" data-cmd="@s[y=320,dy=100]" onclick="copyCmd(this)">复制</button>
-    </div></div>
-      </div></div>
-    </div><div class="ts-group ">
-      <button class="ts-group-head" onclick="toggleTsGroup(this)">
-        <span class="tg-arrow">▶</span>
-        <span class="tg-name">通过记分板</span>
-        <span class="tg-count">3 项</span>
-      </button>
-      <div class="ts-group-body">
-      <div class="ts-param">
-        <div class="tp-head">
-          <span class="tp-name">scores</span>
-          <span class="tp-title">记分项分数</span>
-          <span class="tp-badge">通用</span>
-        </div>
-        <div class="tp-desc">根据指定目标的分数过滤目标。所有的记分项都放在一个单独的标签中，并这个标签中分别列出分数选择器。此选择器支持使用范围，在基岩版中，还可使用不等号（=!）。取值范围：必须为由-、+、.、_、A-Z、a-z和0-9字符组成的字符串。这是目标选择器参数的限制，记分板标签自身可以为任意字符组成的字符串，因而并非所有的记分板标签都可以被选中。</div>
-        <div class="ts-examples"><div class="ts-ex">
-      <div class="ex-cmd">@e[scores={myscore=10}]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有记分项myscore分数为10的目标。</span></div>
-      <button class="ex-copy" data-cmd="@e[scores={myscore=10}]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">@e[scores={myscore=10..12}]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有记分项myscore分数为10到12之间（包含）的目标。</span></div>
-      <button class="ex-copy" data-cmd="@e[scores={myscore=10..12}]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">@e[scores={myscore=5..}]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有记分项myscore分数为5及以上的目标。</span></div>
-      <button class="ex-copy" data-cmd="@e[scores={myscore=5..}]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">@e[scores={myscore=..15}]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有记分项myscore分数为15及以下的目标。</span></div>
-      <button class="ex-copy" data-cmd="@e[scores={myscore=..15}]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">@e[scores={myscore=!10}]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有记分项myscore分数不为空（即存在），且不为10的目标。[仅基岩版]</span></div>
-      <button class="ex-copy" data-cmd="@e[scores={myscore=!10}]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">@e[scores={foo=10,bar=1..5}]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有记分项foo分数为10，且记分项bar分数为1到5之间（包含）的目标。</span></div>
-      <button class="ex-copy" data-cmd="@e[scores={foo=10,bar=1..5}]" onclick="copyCmd(this)">复制</button>
-    </div></div>
-      </div>
-      <div class="ts-param">
-        <div class="tp-head">
-          <span class="tp-name">tag</span>
-          <span class="tp-title">记分板标签</span>
-          <span class="tp-badge">通用</span>
-        </div>
-        <div class="tp-desc">选择所有有标签“标签名称”的目标。tag=!&lt;标签名称&gt;选择所有没有标签“标签名称”的目标。tag=选择所有没有标签的目标。tag=!选择所有有标签的目标。允许使用多个参数。被选择的实体必须满足所有的参数条件。</div>
-        <div class="ts-examples"><div class="ts-ex">
-      <div class="ex-cmd">@e[tag=a,tag=b,tag=!c]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有拥有标签a和b，但没有标签c的目标。</span></div>
-      <button class="ex-copy" data-cmd="@e[tag=a,tag=b,tag=!c]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">@r[tag=a]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择一个有标签a的随机玩家。</span></div>
-      <button class="ex-copy" data-cmd="@r[tag=a]" onclick="copyCmd(this)">复制</button>
-    </div></div>
-      </div>
-      <div class="ts-param">
-        <div class="tp-head">
-          <span class="tp-name">team</span>
-          <span class="tp-title">队伍名称</span>
-          <span class="tp-badge jv">Java版</span>
-        </div>
-        <div class="tp-desc">选择所有属于队伍“某队伍”的目标。team=!&lt;某队伍&gt;选择所有不属队伍“某队伍”的目标。team=选择所有不属于任何队伍的目标。team=!选择所有属于任意队伍的目标。注意：@e[team=red,team=blue]是非法的，因为一个实体只能加入一个队伍。</div>
-        <div class="ts-examples"><div class="ts-ex">
-      <div class="ex-cmd">@a[team=red]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有属于red队伍的玩家。</span></div>
-      <button class="ex-copy" data-cmd="@a[team=red]" onclick="copyCmd(this)">复制</button>
-    </div></div>
-      </div></div>
-    </div><div class="ts-group ">
-      <button class="ts-group-head" onclick="toggleTsGroup(this)">
-        <span class="tg-arrow">▶</span>
-        <span class="tg-name">通过实体种类</span>
-        <span class="tg-count">4 项</span>
-      </button>
-      <div class="ts-group-body">
-      <div class="ts-param">
-        <div class="tp-head">
-          <span class="tp-name">name</span>
-          <span class="tp-title">实体名称</span>
-          <span class="tp-badge">通用</span>
-        </div>
-        <div class="tp-desc">选择所有名字为“某名称”的目标。name=!&lt;某名称&gt;选择所有名字不为“某名称”的目标。这是一个字符串，包含空格时应当用双引号括起。不能为JSON格式的文本组件。</div>
-        <div class="ts-examples"><div class="ts-ex">
-      <div class="ex-cmd">@e[name=!Steve]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择不叫“Steve”的目标。</span></div>
-      <button class="ex-copy" data-cmd="@e[name=!Steve]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">@e[name=""]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有没有名字的实体（例如：箭、下落的方块、未被命名的猪）。</span></div>
-      <button class="ex-copy" data-cmd="@e[name=&quot;&quot;]" onclick="copyCmd(this)">复制</button>
-    </div></div>
-      </div>
-      <div class="ts-param">
-        <div class="tp-head">
-          <span class="tp-name">type</span>
-          <span class="tp-title">实体类型</span>
-          <span class="tp-badge">通用</span>
-        </div>
-        <div class="tp-desc">选择所有特定的实体类型的目标。type=!&lt;实体类型&gt;选择所有不是特定的实体类型的目标。实体类型必须使用有效的实体ID或实体标签[仅Java版]。如果实体ID的命名空间为minecraft则可以省略命名空间。在Java版中，实体ID或标签区分大小写。在基岩版中，当与@r一起使用时，原本用来选择玩家的命令也可以被用来选择其他实体。</div>
-        <div class="ts-examples"><div class="ts-ex">
-      <div class="ex-cmd">@e[type=minecart]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有普通矿车。</span></div>
-      <button class="ex-copy" data-cmd="@e[type=minecart]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">@e[type=skeleton]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有骷髅。</span></div>
-      <button class="ex-copy" data-cmd="@e[type=skeleton]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">@e[type=!chicken,type=!cow]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有除鸡和牛之外的目标。</span></div>
-      <button class="ex-copy" data-cmd="@e[type=!chicken,type=!cow]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">@e[type=chicken,type=cow]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">无效选择：选择所有既是鸡又是牛的目标（不存在）。</span></div>
-      <button class="ex-copy" data-cmd="@e[type=chicken,type=cow]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">@e[type=#skeletons]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有在标签#skeletons内的目标（骷髅、流浪者、凋灵骷髅、骷髅马、沼骸和焦骸）。[仅Java版]</span></div>
-      <button class="ex-copy" data-cmd="@e[type=#skeletons]" onclick="copyCmd(this)">复制</button>
-    </div></div>
-      </div>
-      <div class="ts-param">
-        <div class="tp-head">
-          <span class="tp-name">family</span>
-          <span class="tp-title">族</span>
-          <span class="tp-badge be">基岩版</span>
-        </div>
-        <div class="tp-desc">选择属于指定的族的实体。family=!&lt;族&gt;选择不属于指定的族的实体。给定的实体的族可以是任何字符串，但不包括命名空间。这些实体的族在实体类型的族行为组件中定义，且单个实体可以属于多个族。原版行为包使用的默认值包括：更广泛的大型族（例如mob、inanimate、monster、undead）；更具体的小型族（例如zombie、skeleton）；单个生物的族（例如wandering_trader、enderman、creeper）；与生成事件有挂钩的族（例如farmer、baby_turtle）。</div>
-        <div class="ts-examples"><div class="ts-ex">
-      <div class="ex-cmd">@e[family=skeleton]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有骷髅及其变种和凋灵。</span></div>
-      <button class="ex-copy" data-cmd="@e[family=skeleton]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">@e[family=mob,family=!monster]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有不是敌对生物的生物（例如：会选中牛和猪，但不会选中僵尸和骷髅）。</span></div>
-      <button class="ex-copy" data-cmd="@e[family=mob,family=!monster]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">@e[family=monster,family=undead]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有是亡灵生物的敌对生物（例如：会选中僵尸和骷髅，但不会选中苦力怕和末影人）。</span></div>
-      <button class="ex-copy" data-cmd="@e[family=monster,family=undead]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">@e[family=pacified]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有失去螫针的蜜蜂。</span></div>
-      <button class="ex-copy" data-cmd="@e[family=pacified]" onclick="copyCmd(this)">复制</button>
-    </div></div>
-      </div>
-      <div class="ts-param">
-        <div class="tp-head">
-          <span class="tp-name">predicate</span>
-          <span class="tp-title">谓词</span>
-          <span class="tp-badge jv">Java版</span>
-        </div>
-        <div class="tp-desc">选择所有匹配该谓词的目标。predicate=!&lt;命名空间ID&gt;选定所有不匹配该谓词的目标。</div>
-        <div class="ts-examples"><div class="ts-ex">
-      <div class="ex-cmd">@a[predicate=example:test_predicate]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有匹配谓词example:test_predicate的玩家。</span></div>
-      <button class="ex-copy" data-cmd="@a[predicate=example:test_predicate]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">@e[predicate=!minecraft-wiki:smart_entity]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有不匹配谓词minecraft-wiki:smart_entity的实体。</span></div>
-      <button class="ex-copy" data-cmd="@e[predicate=!minecraft-wiki:smart_entity]" onclick="copyCmd(this)">复制</button>
-    </div></div>
-      </div></div>
-    </div><div class="ts-group ">
-      <button class="ts-group-head" onclick="toggleTsGroup(this)">
-        <span class="tg-arrow">▶</span>
-        <span class="tg-name">通过实体数据</span>
-        <span class="tg-count">5 项</span>
-      </button>
-      <div class="ts-group-body">
-      <div class="ts-param">
-        <div class="tp-head">
-          <span class="tp-name">x_rotation / rx、rxm</span>
-          <span class="tp-title">垂直旋转角度</span>
-          <span class="tp-badge jv">Java版</span><span class="tp-badge be">基岩版</span>
-        </div>
-        <div class="tp-desc">根据指定目标的垂直旋转角度过滤目标。x_rotation[仅Java版]；rx为垂直旋转角度最大值，仅选择所有垂直旋转角度小于RX的目标[仅基岩版]；rxm为垂直旋转角度最小值，仅选择所有垂直旋转角度大于RXM的目标[仅基岩版]。更具体地说，垂直旋转角度是旋转高度与地平线的夹角，以度为单位，正方向向脚下。垂直旋转值从-90（垂直向上）向上增加，之后增加到0（水平），最后增加到90（竖直向下）（因此垂直旋转值随着向下旋转而增加）。在Java版中，此选择器支持范围。</div>
-        <div class="ts-examples"><div class="ts-ex">
-      <div class="ex-cmd">Java版：@e[x_rotation=0]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有看向地平线的目标。</span></div>
-      <button class="ex-copy" data-cmd="Java版：@e[x_rotation=0]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">Java版：@e[x_rotation=30..60]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有看向地平线偏下30°至60°（包含）的目标。</span></div>
-      <button class="ex-copy" data-cmd="Java版：@e[x_rotation=30..60]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">Java版：@e[x_rotation=45..]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有看向地平线偏下45°及更低的目标。</span></div>
-      <button class="ex-copy" data-cmd="Java版：@e[x_rotation=45..]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">Java版：@e[x_rotation=..0]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有看向地平线偏上的目标。</span></div>
-      <button class="ex-copy" data-cmd="Java版：@e[x_rotation=..0]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">基岩版：@e[rxm=45]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有看向地平线偏下45°及更低的目标。</span></div>
-      <button class="ex-copy" data-cmd="基岩版：@e[rxm=45]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">基岩版：@e[rxm=-60,rx=60]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有看向与地平线夹角在60°及以内的目标。</span></div>
-      <button class="ex-copy" data-cmd="基岩版：@e[rxm=-60,rx=60]" onclick="copyCmd(this)">复制</button>
-    </div></div>
-      </div>
-      <div class="ts-param">
-        <div class="tp-head">
-          <span class="tp-name">y_rotation / ry、rym</span>
-          <span class="tp-title">水平旋转角度</span>
-          <span class="tp-badge jv">Java版</span><span class="tp-badge be">基岩版</span>
-        </div>
-        <div class="tp-desc">根据指定目标的水平旋转角度过滤目标。y_rotation[仅Java版]；ry为仅选择最大水平旋转为RY的目标[仅基岩版]；rym为仅选择最小水平旋转为RYM的目标[仅基岩版]。其角度以正南（或正Z轴方向）为基准顺时针旋转。水平旋转值从-180（面向正北）开始，到-90（面向正东），再到0（面向正南），再到90（面向正西），最后到180（再次面向正北）。在Java版中，此选择器支持范围。</div>
-        <div class="ts-examples"><div class="ts-ex">
-      <div class="ex-cmd">Java版：@a[y_rotation=0]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有看向正南的玩家。</span></div>
-      <button class="ex-copy" data-cmd="Java版：@a[y_rotation=0]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">Java版：@a[y_rotation=45]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有看向南偏西45°的玩家。</span></div>
-      <button class="ex-copy" data-cmd="Java版：@a[y_rotation=45]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">Java版：@a[y_rotation=96]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有看向西偏北6°的玩家。</span></div>
-      <button class="ex-copy" data-cmd="Java版：@a[y_rotation=96]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">Java版：@a[y_rotation=-90..0]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有看向正东和正南之间（包含）的玩家。</span></div>
-      <button class="ex-copy" data-cmd="Java版：@a[y_rotation=-90..0]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">Java版：@a[y_rotation=-90..90]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有看向正东和正西之间（包含）的玩家，区域穿过正南。</span></div>
-      <button class="ex-copy" data-cmd="Java版：@a[y_rotation=-90..90]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">Java版：@a[y_rotation=90..-90]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有看向正东和正西之间（包含）的玩家，区域穿过正北。</span></div>
-      <button class="ex-copy" data-cmd="Java版：@a[y_rotation=90..-90]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">Java版：@a[y_rotation=0..]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有不看向南方（包含）和东方之间的玩家。</span></div>
-      <button class="ex-copy" data-cmd="Java版：@a[y_rotation=0..]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">基岩版：@a[rym=0,ry=90]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有看向正西和正南之间（包含）的玩家。</span></div>
-      <button class="ex-copy" data-cmd="基岩版：@a[rym=0,ry=90]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">基岩版：@a[rym=-135,ry=-135]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有看向北偏东45°的玩家。</span></div>
-      <button class="ex-copy" data-cmd="基岩版：@a[rym=-135,ry=-135]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">基岩版：@a[ry=0]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有看向正南和正北之间（包含）的玩家，区域穿过正东。</span></div>
-      <button class="ex-copy" data-cmd="基岩版：@a[ry=0]" onclick="copyCmd(this)">复制</button>
-    </div></div>
-      </div>
-      <div class="ts-param">
-        <div class="tp-head">
-          <span class="tp-name">nbt</span>
-          <span class="tp-title">实体的NBT标签</span>
-          <span class="tp-badge jv">Java版</span>
-        </div>
-        <div class="tp-desc">选择具有指定NBT的所有目标。&lt;NBT&gt;应是一个遵守SNBT格式的复合标签。注意：当匹配字符串内的命名空间ID时，不得省略其命名空间。因此@e[type=item,nbt={Item:{id:"slime_ball"}}]找不到任何东西，因为id字段始终包含一个已经被转换的命名空间ID字符串。</div>
-        <div class="ts-examples"><div class="ts-ex">
-      <div class="ex-cmd">@a[nbt={SelectedItem:{id:"minecraft:diamond_sword"}}]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有手持钻石剑的玩家。</span></div>
-      <button class="ex-copy" data-cmd="@a[nbt={SelectedItem:{id:&quot;minecraft:diamond_sword&quot;}}]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">@e[type=sheep,nbt={Color:0b}]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有白色的绵羊。</span></div>
-      <button class="ex-copy" data-cmd="@e[type=sheep,nbt={Color:0b}]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">@e[type=item,nbt={Item:{id:"minecraft:slime_ball"}}]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有黏液球物品实体。</span></div>
-      <button class="ex-copy" data-cmd="@e[type=item,nbt={Item:{id:&quot;minecraft:slime_ball&quot;}}]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">@e[nbt={Tags:["a","b"]}]与@e[tag=a,tag=b]的效果相同。后者更简单，且减少了CPU的负载。</div>
-      <button class="ex-copy" data-cmd="@e[nbt={Tags:[&quot;a&quot;,&quot;b&quot;]}]与@e[tag=a,tag=b]的效果相同。后者更简单，且减少了CPU的负载。" onclick="copyCmd(this)">复制</button>
-    </div></div>
-      </div>
-      <div class="ts-param">
-        <div class="tp-head">
-          <span class="tp-name">hasitem</span>
-          <span class="tp-title">物品</span>
-          <span class="tp-badge be">基岩版</span>
-        </div>
-        <div class="tp-desc">根据指定目标的物品栏过滤目标。hasitem给定的值必须用{}框起来，如果条件项目多于一个则必须用,将各个项目隔开，并用[]框起来。条件项目中可以重复使用相同的参数，但后来添加的参数会覆盖掉之前的，所以它只会使用最后一个参数中的值。条件项目中所有可用参数：item（指定要检测的物品，此参数的值必须填入一个有效的物品ID，或一个存在物品形态的有效的方块ID。此参数为必要参数。如果未定义，命令将执行失败）；data（可选，指定要检测的物品的数据值，此参数的值必须是0至32767之间（包含）的整数。如果填入的值无效，可能造成游戏崩溃，如果未定义，则默认为0。目前不适用于方块类物品）；quantity（可选，限制范围内的所有槽位中符合条件的物品的总和数量，此参数支持使用范围及不等式（=!）。如果未定义，则默认为1..。当此参数的值为0，则选择所有没有符合条件的物品的目标。当此参数的值为0..，则当前条件项目不做过滤。物品栏中空气的数量始终是0个）；location（可选，指定要检测的物品栏，此参数的值必须是一个有效的物品栏。如果未定义，则检测目标的所有物品栏。即便指定目标没有指定的物品栏，当前条件项目仍然会对该目标进行过滤。这意味着如果quantity的值的范围包括0，该目标将被当前条件项目选中）；slot（可选，使用时必须使用location参数，用于指定要检测的槽位范围，此参数支持使用范围及不等式（=!）。如果未定义则默认为slot=0..）。</div>
-        <div class="ts-examples"><div class="ts-ex">
-      <div class="ex-cmd">@e[hasitem={item=apple}]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有拥有苹果的实体。</span></div>
-      <button class="ex-copy" data-cmd="@e[hasitem={item=apple}]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">@a[hasitem={item=stone,quantity=192,location=slot.hotbar,slot=0..2}]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有工具栏前3格填满石头的玩家。</span></div>
-      <button class="ex-copy" data-cmd="@a[hasitem={item=stone,quantity=192,location=slot.hotbar,slot=0..2}]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">@a[hasitem=[{item=diamond,quantity=3..},{item=stick,quantity=2..}]]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有同时拥有至少3颗钻石和2根木棍的玩家。</span></div>
-      <button class="ex-copy" data-cmd="@a[hasitem=[{item=diamond,quantity=3..},{item=stick,quantity=2..}]]" onclick="copyCmd(this)">复制</button>
-    </div></div>
-      </div>
-      <div class="ts-param">
-        <div class="tp-head">
-          <span class="tp-name">has_property</span>
-          <span class="tp-title">实体属性</span>
-          <span class="tp-badge be">基岩版</span>
-        </div>
-        <div class="tp-desc">根据实体属性规定的条件过滤目标。实体属性是行为包的实体定义文件中为实体所定义的数据字段。在某个实体上定义单个实体属性时，该实体类型的每个实体都将具有该属性，且实体对自身属性值的修改不会影响其他同类实体的同一个属性值。has_property支持的语法：[has_property={property=&lt;属性名&gt;,...}]选择实体属性中存在&lt;属性名&gt;的目标；[has_property={property=!&lt;属性名&gt;,...}]选择实体属性中不存在&lt;属性名&gt;的目标；[has_property={&lt;属性名&gt;=&lt;值&gt;,...}]选择实体属性中&lt;属性名&gt;为&lt;值&gt;的目标。&lt;值&gt;可以为布尔值、范围、浮点数、首尾带有双引号的字符串。注意：&lt;值&gt;的数据类型必须与实体属性的数据类型一致，否则实体不会被选中。例如，[has_property={minecraft:abc=1.0}]不会选中minecraft:abc属性值为整数1的实体。</div>
-        <div class="ts-examples"><div class="ts-ex">
-      <div class="ex-cmd">@e[has_property={property=minecraft:has_nectar}]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择存在minecraft:has_nectar属性的实体。</span></div>
-      <button class="ex-copy" data-cmd="@e[has_property={property=minecraft:has_nectar}]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">@e[has_property={property=!minecraft:is_rolled_up}]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择不存在minecraft:is_rolled_up属性的实体。</span></div>
-      <button class="ex-copy" data-cmd="@e[has_property={property=!minecraft:is_rolled_up}]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">@e[has_property={minecraft:is_rolled_up=true}]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择minecraft:is_rolled_up属性值为true的实体。</span></div>
-      <button class="ex-copy" data-cmd="@e[has_property={minecraft:is_rolled_up=true}]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">@e[has_property={minecraft:is_rolled_up=10..}]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择minecraft:is_rolled_up属性值在10..范围内的实体。</span></div>
-      <button class="ex-copy" data-cmd="@e[has_property={minecraft:is_rolled_up=10..}]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">@e[has_property={minecraft:is_rolled_up="abc"}]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择minecraft:is_rolled_up属性值为字符串abc的实体。</span></div>
-      <button class="ex-copy" data-cmd="@e[has_property={minecraft:is_rolled_up=&quot;abc&quot;}]" onclick="copyCmd(this)">复制</button>
-    </div></div>
-      </div></div>
-    </div><div class="ts-group ">
-      <button class="ts-group-head" onclick="toggleTsGroup(this)">
-        <span class="tg-arrow">▶</span>
-        <span class="tg-name">通过玩家数据</span>
-        <span class="tg-count">4 项</span>
-      </button>
-      <div class="ts-group-body">
-      <div class="ts-param">
-        <div class="tp-head">
-          <span class="tp-name">level / l、lm</span>
-          <span class="tp-title">经验等级</span>
-          <span class="tp-badge jv">Java版</span><span class="tp-badge be">基岩版</span>
-        </div>
-        <div class="tp-desc">根据指定目标的经验等级过滤目标，支持使用范围，这将自动过滤非玩家目标。level[仅Java版]；l只选择所有经验等级低于L的目标（包含）[仅基岩版]；lm只选择所有经验等级高于LM的目标（包含）[仅基岩版]。</div>
-        <div class="ts-examples"><div class="ts-ex">
-      <div class="ex-cmd">Java版：@a[level=5]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有5级的玩家。</span></div>
-      <button class="ex-copy" data-cmd="Java版：@a[level=5]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">Java版：@a[level=5..15]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有5级与15级之间（包含）的玩家。</span></div>
-      <button class="ex-copy" data-cmd="Java版：@a[level=5..15]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">Java版：@a[level=5..]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有至少为5级的玩家。</span></div>
-      <button class="ex-copy" data-cmd="Java版：@a[level=5..]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">Java版：@a[level=..15]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有至多为15级的玩家。</span></div>
-      <button class="ex-copy" data-cmd="Java版：@a[level=..15]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">基岩版：@a[lm=5,l=5]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有5级的玩家。</span></div>
-      <button class="ex-copy" data-cmd="基岩版：@a[lm=5,l=5]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">基岩版：@a[lm=5,l=15]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有5级与15级之间（包含）的玩家。</span></div>
-      <button class="ex-copy" data-cmd="基岩版：@a[lm=5,l=15]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">基岩版：@a[lm=5]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有至少为5级的玩家。</span></div>
-      <button class="ex-copy" data-cmd="基岩版：@a[lm=5]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">基岩版：@a[l=15]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有至多为15级的玩家。</span></div>
-      <button class="ex-copy" data-cmd="基岩版：@a[l=15]" onclick="copyCmd(this)">复制</button>
-    </div></div>
-      </div>
-      <div class="ts-param">
-        <div class="tp-head">
-          <span class="tp-name">gamemode / m</span>
-          <span class="tp-title">游戏模式</span>
-          <span class="tp-badge jv">Java版</span><span class="tp-badge be">基岩版</span>
-        </div>
-        <div class="tp-desc">选择所有处于指定游戏模式的目标。gamemode=!&lt;游戏模式&gt;选择所有不处于指定游戏模式的目标[仅Java版]；m选择所有处于指定游戏模式的玩家[仅基岩版]；m=!M选择所有不处于指定游戏模式的玩家[仅基岩版]。游戏模式的值可以为spectator、adventure、creative、survival和default[仅基岩版]。这将自动过滤非玩家目标。在基岩版中，M可以是全称，也可以是数字（0=生存模式，1=创造模式，2=冒险模式，5=默认模式）或缩写（s=生存模式，c=创造模式，a=冒险模式，d=默认模式）。</div>
-        <div class="ts-examples"><div class="ts-ex">
-      <div class="ex-cmd">@a[gamemode=survival][仅Java版]或@a[m=0]、@a[m=s]或@a[m=survival][仅基岩版]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有生存模式的玩家。</span></div>
-      <button class="ex-copy" data-cmd="@a[gamemode=survival][仅Java版]或@a[m=0]、@a[m=s]或@a[m=survival][仅基岩版]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">@a[gamemode=spectator][仅Java版]或@a[m=spectator][仅基岩版]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有旁观模式的玩家。</span></div>
-      <button class="ex-copy" data-cmd="@a[gamemode=spectator][仅Java版]或@a[m=spectator][仅基岩版]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">@a[gamemode=!survival,gamemode=!adventure][仅Java版]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有既不是生存模式又不是冒险模式的玩家。</span></div>
-      <button class="ex-copy" data-cmd="@a[gamemode=!survival,gamemode=!adventure][仅Java版]" onclick="copyCmd(this)">复制</button>
-    </div></div>
-      </div>
-      <div class="ts-param">
-        <div class="tp-head">
-          <span class="tp-name">advancements</span>
-          <span class="tp-title">进度</span>
-          <span class="tp-badge jv">Java版</span>
-        </div>
-        <div class="tp-desc">根据指定目标的指定进度是否达成过滤目标。advancements={&lt;进度ID&gt;=&lt;值&gt;},...根据指定目标的指定进度是否达成过滤目标；advancements={&lt;进度ID&gt;={&lt;准则名称&gt;=&lt;值&gt;},...}根据指定目标的指定进度中的准则是否达成过滤目标。&lt;值&gt;可以为true或false，代表此进度或准则是否达成。由于MC-139908，含有部分字符（如:）的准则名称不能填入其中。</div>
-        <div class="ts-examples"><div class="ts-ex">
-      <div class="ex-cmd">@a[advancements={story/form_obsidian=true}]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有已达成进度“冰桶挑战”的玩家。</span></div>
-      <button class="ex-copy" data-cmd="@a[advancements={story/form_obsidian=true}]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">@a[advancements={story/form_obsidian=false}]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有未达成进度“冰桶挑战”的玩家。</span></div>
-      <button class="ex-copy" data-cmd="@a[advancements={story/form_obsidian=false}]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">@a[advancements={story/obtain_armor={iron_helmet=true}}]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有已达成进度“整装上阵”中iron_helmet准则的玩家。即物品栏中曾存在过铁头盔的玩家，实际选择到的玩家的物品栏中不一定存在铁头盔。</span></div>
-      <button class="ex-copy" data-cmd="@a[advancements={story/obtain_armor={iron_helmet=true}}]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">@a[advancements={story/follow_ender_eye=true}]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择所有已达成进度“隔墙有眼”的玩家。其与@a[advancements={story/follow_ender_eye={in_stronghold=true}}]的效果相同，因为此进度中只有in_stronghold这一个准则。</span></div>
-      <button class="ex-copy" data-cmd="@a[advancements={story/follow_ender_eye=true}]" onclick="copyCmd(this)">复制</button>
-    </div></div>
-      </div>
-      <div class="ts-param">
-        <div class="tp-head">
-          <span class="tp-name">haspermission</span>
-          <span class="tp-title">权限</span>
-          <span class="tp-badge be">基岩版</span>
-        </div>
-        <div class="tp-desc">根据指定目标的权限（可通过/inputpermission命令修改）过滤目标。这将自动过滤非玩家目标。</div>
-        <div class="ts-examples"><div class="ts-ex">
-      <div class="ex-cmd">@a[haspermission={camera=enabled}]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择已启用相机视角权限的玩家。</span></div>
-      <button class="ex-copy" data-cmd="@a[haspermission={camera=enabled}]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">@a[haspermission={movement=disabled}]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择已禁用移动权限的玩家。</span></div>
-      <button class="ex-copy" data-cmd="@a[haspermission={movement=disabled}]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">@a[haspermission={camera=disabled,movement=enabled}]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择已禁用相机视角权限且启用移动权限的玩家。</span></div>
-      <button class="ex-copy" data-cmd="@a[haspermission={camera=disabled,movement=enabled}]" onclick="copyCmd(this)">复制</button>
-    </div></div>
-      </div></div>
-    </div><div class="ts-group ">
-      <button class="ts-group-head" onclick="toggleTsGroup(this)">
-        <span class="tg-arrow">▶</span>
-        <span class="tg-name">通过其他特性</span>
-        <span class="tg-count">1 项</span>
-      </button>
-      <div class="ts-group-body">
-      <div class="ts-param">
-        <div class="tp-head">
-          <span class="tp-name">limit、sort / c</span>
-          <span class="tp-title">数量</span>
-          <span class="tp-badge jv">Java版</span><span class="tp-badge be">基岩版</span>
-        </div>
-        <div class="tp-desc">limit仅选择指定数量的目标[仅Java版]；c选择指定数量的目标，并以距离命令执行点的顺序排列[仅基岩版]。当使用@p、@r或@n变量时，此参数默认为1。对它们使用limit[仅Java版]或c[仅基岩版]参数时会增加选择最近或随机目标的数量。当使用@a或@e变量时，此参数会限制目标数量。当满足条件的目标少于指定的数量时，不影响命令的执行。注意，数量参数与距离参数和体积尺寸参数不同，数量参数可以跨维度选择目标。在基岩版中，当输入的值为负值时，目标的顺序会被反转。举例来说，@p[c=-3]会回传3个最远的目标，而且，如果所有目标距离都一样远，@e[c=-3]会选择3个刚加载/生成的目标。</div>
-        <div class="ts-examples"><div class="ts-ex">
-      <div class="ex-cmd">Java版：@p[limit=3]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择距离最近的3名玩家。</span></div>
-      <button class="ex-copy" data-cmd="Java版：@p[limit=3]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">Java版：@a[limit=4,sort=furthest]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择距离最远的4名玩家。</span></div>
-      <button class="ex-copy" data-cmd="Java版：@a[limit=4,sort=furthest]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">Java版：@r[limit=2]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">随机选择2名玩家。</span></div>
-      <button class="ex-copy" data-cmd="Java版：@r[limit=2]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">基岩版：@p[c=3]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择距离最近的3名玩家。</span></div>
-      <button class="ex-copy" data-cmd="基岩版：@p[c=3]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">基岩版：@p[c=-4]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">选择距离最远的4名玩家。</span></div>
-      <button class="ex-copy" data-cmd="基岩版：@p[c=-4]" onclick="copyCmd(this)">复制</button>
-    </div><div class="ts-ex">
-      <div class="ex-cmd">基岩版：@r[c=2]<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">随机选择2名玩家。</span></div>
-      <button class="ex-copy" data-cmd="基岩版：@r[c=2]" onclick="copyCmd(this)">复制</button>
-    </div></div>
-      </div></div>
-    </div></div>
-
-    <div class="ts-sec-title">排序方式 <span class="ts-sub">仅Java版 limit 参数</span></div>
-    <div class="ts-examples" style="margin-top:0">
-    <div class="ts-ex"><div class="ex-cmd">sort=nearest<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">将目标由近到远排序。（@p和@n的默认排序方式）</span></div></div>
-    <div class="ts-ex"><div class="ex-cmd">sort=furthest<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">将目标由远到近排序。</span></div></div>
-    <div class="ts-ex"><div class="ex-cmd">sort=random<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">将目标随机排序。（@r的默认排序方式）</span></div></div>
-    <div class="ts-ex"><div class="ex-cmd">sort=arbitrary<br><span style="color:var(--ink-soft);font-family:inherit;font-size:11px">将目标按生成时间由远到近排序。（@a和@e的默认排序方式）</span></div></div></div>
-
-    <div class="ts-sec-title">使用限制</div>
-    <div class="ts-limits">
-    <div class="ts-limit">
-      <h4>玩家类型限制 <span class="tl-tag">Player-only</span></h4>
-      <p>某些命令参数要求选择器必须仅能选择玩家而不选其他实体类型。受到此限制的选择器须符合以下条件之一：变量为@e，且包含参数type=player；变量为@a、@p或@r，且不包含type参数或type参数为type=player。若命令参数要求选择器必须为玩家类型，但输入的不符合条件，在Java版中，命令将无法解析；在基岩版中，命令可以解析，但执行失败。</p>
-    </div>
-    <div class="ts-limit">
-      <h4>单一实体限制 <span class="tl-tag">Single-entity</span></h4>
-      <p>某些命令参数要求选择器只允许选择单一实体。此限制可以与必须为玩家类型同时出现。受到此限制的选择器须符合以下条件之一：变量为@a或@e，且包含limit=1参数；变量为@s，且不包含limit参数；变量为@p、@r或@n，且不包含limit参数或limit参数为limit=1。若命令参数要求选择器必须为单一数量，但输入的不符合条件，命令将无法解析。</p>
-    </div></div>
-
-    <div class="ts-sec-title">历史版本记录</div>
-    <div class="ts-hist">
-    <div style="margin-bottom:6px"><b style="color:var(--blue-800);font-size:13px">Java版</b></div>
-    <table>
-      <thead><tr><th>版本</th><th>快照/构建</th><th>内容</th></tr></thead>
-      <tbody><tr><td><b>1.4.2</b></td><td>12w32a</td><td>加入了目标选择器。</td></tr><tr><td><b>1.8</b></td><td>14w02a</td><td>加入了目标选择器@e。</td></tr><tr><td><b>1.8</b></td><td>14w03a</td><td>目标选择器加入了dx、dy和dz参数。</td></tr><tr><td><b>1.9</b></td><td>16w02a</td><td>目标选择器参数m接受游戏模式的全称及其缩写，如a和adventure，且可以将其反选，如@a[m=!a]。</td></tr><tr><td><b>1.11</b></td><td>16w38a</td><td>移除了隐式目标选择器参数（如@e[167,28,454,5]现在必须写成@e[x=167,y=28,z=454,r=5]）。无效的目标选择器（如@e[Type=creeper]、@e[asdf=nonexistent]和@e[malformed]）现在会产生错误，而不再被静默忽略。</td></tr><tr><td><b>1.12</b></td><td>17w16b</td><td>加入了目标选择器@s，用于选择命令执行者。</td></tr><tr><td><b>1.13</b></td><td>17w45a</td><td>在目标选择器中加入了nbt。对目标选择器参数进行了大幅度修改。</td></tr><tr><td><b>1.15</b></td><td>19w38a</td><td>加入了目标选择器参数predicate。</td></tr><tr><td><b>1.21</b></td><td>24w21a</td><td>加入了目标选择器@n。</td></tr><tr><td><b>1.21</b></td><td>1.21-pre1</td><td>现在@n不再能够选中濒死的实体。</td></tr><tr><td><b>1.21.5</b></td><td>25w05a</td><td>team选择器现在可以选中非生物实体。</td></tr></tbody>
-    </table>
-    <div style="margin-bottom:6px"><b style="color:var(--blue-800);font-size:13px">基岩版</b></div>
-    <table>
-      <thead><tr><th>版本</th><th>快照/构建</th><th>内容</th></tr></thead>
-      <tbody><tr><td><b>携带版Alpha 0.16.0</b></td><td>build 1</td><td>加入了命令功能以及目标选择器。</td></tr><tr><td><b>1.2.0</b></td><td>1.2.0.2</td><td>加入了目标选择器@s。</td></tr><tr><td><b>1.16.100</b></td><td>1.16.100.55</td><td>加入了目标选择器参数family。</td></tr><tr><td><b>1.17.10</b></td><td>1.17.10.22</td><td>加入了目标选择器@initiator。</td></tr><tr><td><b>1.18.30</b></td><td>1.18.20.21</td><td>加入了目标选择器参数hasitem。</td></tr><tr><td><b>1.19.70</b></td><td>1.19.70.21</td><td>dx、dy和dz目标选择器参数现在会选择判定箱与体积方框相重叠的所有实体，而不是脚部坐标与体积方框相重叠的实体。</td></tr><tr><td><b>1.19.80</b></td><td>1.19.80.21</td><td>加入了目标选择器参数haspermission。</td></tr><tr><td><b>1.20.70</b></td><td>1.20.70.21</td><td>加入了目标选择器参数has_property。</td></tr><tr><td><b>1.21.100</b></td><td>1.21.100.21</td><td>加入了目标选择器@n。</td></tr></tbody>
-    </table></div>
-
-    <div class="ts-sec-title">相关链接</div>
-    <div class="ts-links">
-    <a class="ts-link" href="https://zh.minecraft.wiki/w/命令" target="_blank" rel="noopener">命令 ↗</a>
-    <a class="ts-link" href="https://zh.minecraft.wiki/w/实体数据格式" target="_blank" rel="noopener">实体数据格式 ↗</a>
-    <a class="ts-link" href="https://zh.minecraft.wiki/w/目标选择器" target="_blank" rel="noopener">目标选择器（Wiki 原文） ↗</a></div></div>
   </main>
 </div>
 
@@ -3569,6 +2971,12 @@ function renderHome(){
     { key:"tech", cat:"基岩版指令", img:"cat_basic", name:"基岩版指令大全", desc:"从 Minecraft Wiki 抓取的 99 个基岩版指令完整语法与含义" },
     { key:"product", cat:"小游戏", img:"cat_minigame", name:"小游戏成品", desc:"可直接使用的跑酷、PVP、计分等成品指令" }
   ];
+  const tools = [
+    { key:"generator", img:"cat_generator", cnt:"77", name:"指令生成器", desc:"可视化选择参数，自动拼接生成 Minecraft 指令，无需手写语法" },
+    { key:"idquery", img:"cat_idquery_1", cnt:"1万+", name:"ID查询", desc:"查询基岩版全部方块、物品、实体等 ID，支持搜索与一键复制" },
+    { key:"target", img:"cat_target", cnt:"多种", name:"目标选择器", desc:"@p、@a、@e 等目标选择器变量与参数，快速生成目标表达式" },
+    { key:"ai", img:"cat_ai_1", cnt:"AI", name:"AI写指令", desc:"用自然语言描述需求，AI 帮你生成对应的 Minecraft 指令" }
+  ];
   const countOf = (key,cat)=>DATA[key].filter(i=>i.cat===cat).length;
   view.innerHTML = `
     <section class="home-hero">
@@ -3593,6 +3001,12 @@ function renderHome(){
           <p>${c.desc}</p>
         </div>`;
       }).join("")}
+      ${tools.map(c=>`
+        <div class="home-card" onclick="go('${c.key}')">
+          <div class="ic"><img src="assets/${c.img}.jpg" alt="${c.name}"></div>
+          <h3>${c.name} <span class="cnt">${c.cnt}</span></h3>
+          <p>${c.desc}</p>
+        </div>`).join("")}
     </div>
     ${renderDaily()}
     ${renderRecent()}`;
