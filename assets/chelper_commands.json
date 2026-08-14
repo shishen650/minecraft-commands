@@ -1,0 +1,387 @@
+[
+  {
+    "name": "aimassist",
+    "structure": "aimassist <目标选择器> clear",
+    "hint": "被修改瞄准辅助的玩家"
+  },
+  {
+    "name": "alwaysday",
+    "structure": "<命令>",
+    "hint": "命令的名字"
+  },
+  {
+    "name": "camera",
+    "structure": "camera <目标选择器> attach_to_entity <目标选择器>",
+    "hint": "将被修改相机视角的玩家"
+  },
+  {
+    "name": "camerashake",
+    "structure": "camerashake add <目标选择器> [摇晃强度] [摇晃时长] [摇晃种类]",
+    "hint": "给玩家添加视野摇晃效果"
+  },
+  {
+    "name": "clear",
+    "structure": "<命令>",
+    "hint": "命令的名字"
+  },
+  {
+    "name": "clearspawnpoint",
+    "structure": "<命令>",
+    "hint": "命令的名字"
+  },
+  {
+    "name": "clone",
+    "structure": "clone <源坐标1> <源坐标2> <目标区域的坐标> [标记模式] [复制模式]",
+    "hint": "源区域的两组对角方块坐标"
+  },
+  {
+    "name": "controlscheme",
+    "structure": "controlscheme <目标选择器> clear",
+    "hint": "被修改控制方案的玩家"
+  },
+  {
+    "name": "damage",
+    "structure": "damage <目标选择器> <伤害值> [伤害的成因] entity [目标选择器]",
+    "hint": "要被伤害的目标实体"
+  },
+  {
+    "name": "daylock",
+    "structure": "<命令>",
+    "hint": "命令的名字"
+  },
+  {
+    "name": "deop",
+    "structure": "deop <目标选择器>",
+    "hint": "从管理员列表中移除的玩家"
+  },
+  {
+    "name": "dialogue",
+    "structure": "dialogue change <目标选择器> <场景名> [目标选择器]",
+    "hint": "改变场景"
+  },
+  {
+    "name": "difficulty",
+    "structure": "difficulty <难度等级>",
+    "hint": "难度等级"
+  },
+  {
+    "name": "effect",
+    "structure": "effect <目标选择器> <效果> [时长] [等级] [是否隐藏药水粒子]",
+    "hint": "目标实体"
+  },
+  {
+    "name": "enchant",
+    "structure": "enchant <目标选择器> <魔咒> [魔咒等级]",
+    "hint": "目标实体"
+  },
+  {
+    "name": "event",
+    "structure": "event entity <目标选择器> <实体事件>",
+    "hint": "触发实体事件"
+  },
+  {
+    "name": "execute",
+    "structure": "execute ... run <命令>",
+    "hint": "把执行位置转换为方块坐标（向下取整）"
+  },
+  {
+    "name": "fill",
+    "structure": "fill <填充坐标1> <填充坐标2> <方块ID> [方块状态] [填充模式]",
+    "hint": "定义填充区域的两组对角方块坐标"
+  },
+  {
+    "name": "fog",
+    "structure": "fog <目标选择器> <删除模式> <迷雾名称>",
+    "hint": "修改玩家迷雾效果的目标"
+  },
+  {
+    "name": "function",
+    "structure": "function <函数名>",
+    "hint": "要执行的函数或函数标签"
+  },
+  {
+    "name": "gamemode",
+    "structure": "gamemode <游戏模式> [目标选择器]",
+    "hint": "玩家的新游戏模式"
+  },
+  {
+    "name": "gamerule",
+    "structure": "<命令>",
+    "hint": "命令的名字"
+  },
+  {
+    "name": "gametest",
+    "structure": "gametest clearall",
+    "hint": "清除所有的GameTest"
+  },
+  {
+    "name": "give",
+    "structure": "give <目标选择器> <物品ID> [物品数量] [物品附加值] [物品组件]",
+    "hint": "被给予物品的玩家"
+  },
+  {
+    "name": "help",
+    "structure": "<命令>",
+    "hint": "命令的名字"
+  },
+  {
+    "name": "hud",
+    "structure": "hud <目标选择器> <可见性> [HUD元素]",
+    "hint": "被修改HUD可见性的玩家"
+  },
+  {
+    "name": "inputpermission",
+    "structure": "inputpermission query <目标选择器> <操作所作用的权限> [权限的状态]",
+    "hint": "查询目标的指定权限的状态"
+  },
+  {
+    "name": "kick",
+    "structure": "kick <要踢除的玩家> <踢出原因>",
+    "hint": "要踢出的玩家, 必须是玩家名"
+  },
+  {
+    "name": "kill",
+    "structure": "<命令>",
+    "hint": "命令的名字"
+  },
+  {
+    "name": "list",
+    "structure": "<命令>",
+    "hint": "命令的名字"
+  },
+  {
+    "name": "listd",
+    "structure": "<命令>",
+    "hint": "命令的名字"
+  },
+  {
+    "name": "locate",
+    "structure": "locate biome <生物群系>",
+    "hint": "定位生物群系"
+  },
+  {
+    "name": "loot",
+    "structure": "loot give <目标选择器> kill <要模拟杀死的实体> [工具]",
+    "hint": "给予玩家物品，忽略空物品堆"
+  },
+  {
+    "name": "me",
+    "structure": "me <信息>",
+    "hint": "要显示的信息"
+  },
+  {
+    "name": "mobevent",
+    "structure": "mobevent <事件> [是否启用事件]",
+    "hint": "要控制或查询的事件"
+  },
+  {
+    "name": "msg",
+    "structure": "msg <目标选择器> <消息>",
+    "hint": "私聊消息的接收玩家"
+  },
+  {
+    "name": "music",
+    "structure": "music play <播放音乐名> [音乐音量] [渐变时间] [是否循环播放]",
+    "hint": "播放音乐"
+  },
+  {
+    "name": "op",
+    "structure": "op <目标选择器>",
+    "hint": "要被授予管理员权限的玩家"
+  },
+  {
+    "name": "particle",
+    "structure": "particle <粒子类型> [位置]",
+    "hint": "要创造的粒子类型"
+  },
+  {
+    "name": "place",
+    "structure": "place feature <地物> [生成原点]",
+    "hint": "放置地物"
+  },
+  {
+    "name": "playanimation",
+    "structure": "playanimation <目标选择器> <动画> [结束状态] [渐变时间] [终止条件] [动画控制器]",
+    "hint": "目标"
+  },
+  {
+    "name": "playsound",
+    "structure": "playsound <声音> [目标选择器] [方位] [范围] [音调] [范围外音量]",
+    "hint": "要播放的声音"
+  },
+  {
+    "name": "recipe",
+    "structure": "recipe give <目标选择器> *",
+    "hint": "对玩家给予（解锁）指定合成配方"
+  },
+  {
+    "name": "reload",
+    "structure": "<命令>",
+    "hint": "命令的名字"
+  },
+  {
+    "name": "replaceitem",
+    "structure": "replaceitem block <方块位置> slot.container <槽位> <物品ID> [物品数量] [物品附加值] [物品组件]",
+    "hint": "替换方块物品栏内的物品"
+  },
+  {
+    "name": "ride",
+    "structure": "ride <目标选择器> start_riding <目标选择器> [传送规则] [骑乘模式]",
+    "hint": "乘客"
+  },
+  {
+    "name": "save",
+    "structure": "<命令>",
+    "hint": "命令的名字"
+  },
+  {
+    "name": "say",
+    "structure": "say <消息>",
+    "hint": "消息"
+  },
+  {
+    "name": "schedule",
+    "structure": "schedule clear <函数>",
+    "hint": "将之前指定的函数从计划中移除"
+  },
+  {
+    "name": "scoreboard",
+    "structure": "scoreboard objectives add <记分项> dummy [记分项显示的名字]",
+    "hint": "创建、列出、删除、显示记分项"
+  },
+  {
+    "name": "script",
+    "structure": "script debugger close",
+    "hint": "调试GameTest框架选项"
+  },
+  {
+    "name": "scriptevent",
+    "structure": "scriptevent <消息ID> <文本>",
+    "hint": "触发脚本事件的消息ID"
+  },
+  {
+    "name": "setblock",
+    "structure": "setblock <位置> <方块ID> [方块状态] [更改方式]",
+    "hint": "要被更改方块的位置"
+  },
+  {
+    "name": "setmaxplayers",
+    "structure": "setmaxplayers <玩家数量上限值>",
+    "hint": "要设置的玩家数量上限值"
+  },
+  {
+    "name": "setworldspawn",
+    "structure": "<命令>",
+    "hint": "命令的名字"
+  },
+  {
+    "name": "spawnpoint",
+    "structure": "<命令>",
+    "hint": "命令的名字"
+  },
+  {
+    "name": "spreadplayers",
+    "structure": "spreadplayers <x> <z> <最小间距> <范围> <目标选择器> [最大高度]",
+    "hint": "中心x坐标"
+  },
+  {
+    "name": "stopsound",
+    "structure": "stopsound <目标选择器> [声音]",
+    "hint": "声音的接收者"
+  },
+  {
+    "name": "structure",
+    "structure": "structure delete <结构名>",
+    "hint": "删除某个储存的结构文件"
+  },
+  {
+    "name": "summon",
+    "structure": "summon <实体类型> [实体名] [实体召唤位置]",
+    "hint": "要被召唤的实体类型"
+  },
+  {
+    "name": "tag",
+    "structure": "tag <目标选择器> <添加或移除> <标签名>",
+    "hint": "要操作的实体目标"
+  },
+  {
+    "name": "teleport",
+    "structure": "teleport <目标选择器>",
+    "hint": "要被传送到的实体"
+  },
+  {
+    "name": "tell",
+    "structure": "tell <目标选择器> <消息>",
+    "hint": "私聊消息的接收玩家"
+  },
+  {
+    "name": "tellraw",
+    "structure": "tellraw <目标选择器> <JSON文本>",
+    "hint": "接收JSON文本消息的玩家"
+  },
+  {
+    "name": "testfor",
+    "structure": "testfor <目标选择器>",
+    "hint": "计数的目标"
+  },
+  {
+    "name": "testforblock",
+    "structure": "testforblock <坐标> <方块ID> [方块状态]",
+    "hint": "待探测的方块的坐标"
+  },
+  {
+    "name": "testforblocks",
+    "structure": "testforblocks <源坐标1> <源坐标2> <待检查区域坐标> [测试模式]",
+    "hint": "作为样式基准的区域（源区域）的两个对角方块的第一个"
+  },
+  {
+    "name": "tickingarea",
+    "structure": "tickingarea add <坐标1> <坐标2> [常加载区域名称] [是否预加载]",
+    "hint": "添加常加载区域"
+  },
+  {
+    "name": "time",
+    "structure": "time add <时间值>",
+    "hint": "增加时间"
+  },
+  {
+    "name": "title",
+    "structure": "title <目标选择器> <文字的位置> <文本>",
+    "hint": "要显示或清除屏幕标题的玩家"
+  },
+  {
+    "name": "titleraw",
+    "structure": "titleraw <目标选择器> <文字的位置> <JSON文本>",
+    "hint": "要显示或清除屏幕标题的玩家"
+  },
+  {
+    "name": "toggledownfall",
+    "structure": "<命令>",
+    "hint": "命令的名字"
+  },
+  {
+    "name": "tp",
+    "structure": "tp <目标选择器>",
+    "hint": "要被传送到的实体"
+  },
+  {
+    "name": "volumearea",
+    "structure": "volumearea add [标识符的名称] [位置] [位置] [名称]",
+    "hint": "在指定范围内添加功能域"
+  },
+  {
+    "name": "w",
+    "structure": "w <目标选择器> <消息>",
+    "hint": "私聊消息的接收玩家"
+  },
+  {
+    "name": "weather",
+    "structure": "weather <天气> [持续时间]",
+    "hint": "天气"
+  },
+  {
+    "name": "xp",
+    "structure": "xp <经验值数量> [目标选择器]",
+    "hint": "给予玩家的经验值数量"
+  }
+]

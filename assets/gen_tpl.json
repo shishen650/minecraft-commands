@@ -1,0 +1,90 @@
+[
+{
+"c": "clone",
+"u": "clone需要的权限等级Java版：2基岩版：1限制条件启用作弊[仅基岩版]在指定区域之间复制方块结构。语法Java版clone ...clone from <sourceDimension> ...... <begin> <end> .."
+},
+{
+"c": "deop",
+"u": "deop需要的权限等级Java版：3基岩版：2限制条件不在命令方块上执行仅专用服务器[仅Java版]撤销玩家的管理员身份。语法Java版deop <targets>基岩版deop <player: target>参数JE：<targets>"
+},
+{
+"c": "effect",
+"u": "/effect <player: target> <effect: Effect> infinite [amplifier: int]、/effect <player: target> <effect: Effect> infinite <amplifier: int> [hideParticles: Boolean]。加入了移除特定状态效果的语法：/effect <player: target> clear [effect: Effect]。注释导航"
+},
+{
+"c": "fill",
+"u": "fill <from: x y z> <to: x y z> <tileName: Block> <blockStates: block states> replace [replaceTileName: Block] [replaceBlockStates: block states]fill <from: x y z> <to: x y z> <tileName: Block> replace [replaceTileName: Block] [replaceBlockStates: block states]参数JE：<from>：block_pos和<to>：block_posBE：from: x y z：CommandPosition和to: x y z：CommandPosition定义填充区域的两组对角方块坐标。在Java版中，表示一个方块坐标，格式为<X> <Y> <Z>，三个值必须为整数、相对坐标或局部坐标。若为相对坐标或局部坐标，则会将各坐标值向下取整变为方块坐标。在基岩版中，必须为三维的坐标，格式为<X> <Y> <Z>，三个值必须是浮点数、相对坐标或局部坐标。构成边角的方块在此方块的坐标正方向上延伸。因此，各轴上较小的坐标将会正好贴合区域边界，但较大的坐标将会超过边界1方块，源区域的体积则为(x大- x小+ 1) × (y大- y小+ 1) × (z大- z小+ 1)。例如：0 0 0 0 0 0的体积为1方块，0 0 0 1 1 1与1 1 1 0 0 0都指定同一块8方块大小的区域。JE：<block>：block_stateBE：tileName: Block：Block指定用于填充该区域的方块。在Java版中，格式必须为<方块ID>[<方块属性>]{<方块实体NBT>}，其中<方块>之后的部分可选。参见参数类型 § minecraft:block_state。在基岩版中，必须为方块ID。BE：blockStates: block states：BlockStateCommandParam指定方块要使用的方块状态。必须为格式为[\"<键1>\"=<值1>,\"<键2>\"=<值2>,...]的方块状态（例如：[\"old_leaf_type\"=\"birch\",\"persistent_bit\"=true]）。用destroy填充空气用hollow填充玻璃用outline填充玻璃JE：outline|hollow|destroy|strict|replace|keep、​replace和​outline|hollow|destroy|strictBE：oldBlockHandling: FillMode指定方块更改的处理方式，必须为以下其中之一：destroy— 用指定方块替换填充区域内所有方块（包括空气），原有方块视为被无附魔的下界合金锹或镐采掘而掉落对应的物品实体形式。（这意味着只能被剪刀采集的方块，如藤蔓，不会掉落；流体方块同理。）hollow— 仅用指定方块替换填充区域外层的方块。内部方块被替换为空气。若被填充的区域没有内部（长、宽、高至少一个不足3方格）时，与默认效果相似。outline— 仅用指定方块替换填充区域外层的方块。内部方块不受影响。若被填充的区域没有内部（长、宽、高至少一个不足3方格）时，与默认效果相似。keep— 仅用指定方块替换填充区域内的空气方块。replace— 单独使用时与默认效果相同，但在其后指定<filter>[仅JE]或tileName: Block[仅BE]可限制被替换的方块类型。strict[仅Java版]— 在放置方块时不触发自身及紧挨着的方块的方块更新和形状更新。若未指定，默认用指定方块替换填充区域内所有方块（包括空气），而不以实体形式掉落被替换的方块和方块内容物。JE：<filter>：block_predicateBE：tileName: Block：Block指定将要替换的方块。若未指定，将替换填充区域内的所有方块。在Java版中，格式必须为<方块>[<方块属性>]{<方块实体NBT>}，其中<方块>必须为一个方块ID或以#开头的方块标签ID。<方块>之后的部分可选。参见参数类型 § minecraft:block_predicate。在基岩版中，必须为方块ID。BE：replaceBlockStates: block states：block states指定要替换的方块的方块状态。结果命令触发条件Java版基岩版任意参数不正确无法解析无法解析至少一个指定的坐标位于世界外或未被加载执行失败执行失败填充区域方块数大于32768[仅基岩版]或“命令修改方块数量限制”（max_block_modifications）的设定值[仅Java版]/fill ... hollow/fill ... keep/fill ... outline/fill ... replace .../fill ... strict没有方块被更改/fill ... destroy在原区域均为空气的情况下尝试填充空气任意不符合以上所有条件执行成功输出命令版本条件成功次数/execute store success .../execute store result ...任意Java版执行失败000执行成功11填充区域内被更改的方块数任意基岩版执行失败0N/AN/A执行成功1N/AN/A示例/fill 52 63 -1516 33 73 -1536 gold_block replace white_concrete在指定坐标的区域内将白色混凝土替换为金块。/fill ~-3 ~-3 ~-3 ~3 ~-1 ~3 water将玩家脚下为顶面中心7×3×7的区域替换为水。/fill ~-3 ~ ~-4 ~3 ~4 ~4 oak_planks hollow在玩家四周生成由橡木木板组成的一个普通房间大小的盒子，并将内部替换为空气。/fill ~-15 ~-15 ~-15 ~15 ~15 ~15 stone以玩家为中心生成一个实心的石头立方体。/fill ~ ~ ~ ~9 ~9 ~9 glass outline在玩家所处位置上生成一个10×10×10的玻璃罩，并保留内部结构。/fill ~-1 ~ ~ ~1 ~ ~ prismarine_brick_stairs[facing=south,waterlogged=true][仅Java版]将玩家周围指定位置的方块替换为面向南方且含水的海晶石砖楼梯。/fill ~-16 ~-14 ~-16 ~16 ~14 ~16 sandstone[\"sand_stone_type\"=\"heiroglyphs\"] replace netherrack[仅基岩版]以玩家为中心将33×29×33区域内的下界岩替换为雕纹砂岩。历史Java版1.814w03a加入了/fill命令。1.1116w32a加入了方块状态的支持。1.19.423w03a现在可以通过commandModificationBlockLimit游戏规则控制单次执行可更改的最大方块数。1.21.525w02a更改了处理方块实体数据的方式。现在replace选项可以在后面附加额外选项。加入了strict选项。携带版Alpha0.16.0build 1加入了/fill命令。基岩版1.2.0?/fill命令可更改的最大方块数现在为32768。1.16.2101.16.210.53加入了/fill中对方块状态的支持。1.19.701.19.70.21移除了tileData: int和replaceDataValue: int参数。导航"
+},
+{
+"c": "give",
+"u": "give需要的权限等级Java版：2基岩版：1限制条件启用作弊给予玩家指定数量的物品。用法给予玩家指定数量的物品，若<targets>或player: target指定了多个目标，每个目标都会收到指定数量的物品。在Java版中，将在目标位置"
+},
+{
+"c": "kill",
+"u": "kill需要的权限等级Java版：2基岩版：1限制条件启用作弊[仅基岩版]杀死生物，清除非生物实体。用法受影响的非生物实体会被直接移除。受影响的生物会受到3.40282×1038（× 1.70141×1038）的伤害，此伤害无视生物的所有伤"
+},
+{
+"c": "locate",
+"u": "locate需要的权限等级Java版：2基岩版：1限制条件启用作弊[仅基岩版]在聊天框中为命令执行者显示给定的结构、生物群系或兴趣点[仅Java版]的最近坐标和距离。在Java版中，点击返回的坐标后，会自动在聊天框输入/tp@s坐标。若命令"
+},
+{
+"c": "loot",
+"u": "loot需要的权限等级Java版：2基岩版：1限制条件启用作弊[仅基岩版]将指定的战利品放入物品栏或世界。语法Java版loot <目标> <来源>其中：<目标>可以为：give <players>给予玩家物品。空物品堆叠会被直接忽略。in"
+},
+{
+"c": "me",
+"u": "me需要的权限等级0限制条件无广播一条关于你的信息。语法Java版me <action>基岩版me <message: message>参数JE：<action>：messageBE：message: message：CommandMess"
+},
+{
+"c": "op",
+"u": "op需要的权限等级Java版：3基岩版：2限制条件不在命令方块上执行仅专用服务器[仅JE]给予玩家管理员身份。在Java版中，此命令会将玩家添加进ops.json文件，权限等级设为server.properties中op-permissio"
+},
+{
+"c": "playsound",
+"u": "playsound需要的权限等级Java版：2基岩版：1限制条件启用作弊[仅基岩版]以特定的音量和音高，在指定位置向玩家播放声音事件实例。语法Java版playsound <sound> [<类别>] [<targets>] [<pos>]"
+},
+{
+"c": "reload",
+"u": "reload需要的权限等级2限制条件启用作弊[仅基岩版]不在命令方块上执行[仅基岩版]在Java版中重新加载数据包，在基岩版中重新加载行为包中的函数和脚本。用法如果数据包或行为包含有无效数据（例如错误的配方格式），更改将不会应用，游戏会使用"
+},
+{
+"c": "say",
+"u": "say需要的权限等级Java版：2基岩版：1限制条件无通过聊天框向多个玩家发送消息。语法Java版say <message>基岩版say <message: message>参数JE：<message>：messageBE：message:"
+},
+{
+"c": "schedule",
+"u": "schedule需要的权限等级Java版：2基岩版：1限制条件启用作弊[仅基岩版]计划执行函数。用法在Java版中，在经过指定的时间后执行一个函数或一个函数标签中的所有函数。在基岩版中，在指定的区域全部被加载时执行一个函数。在Java版中，"
+},
+{
+"c": "setblock",
+"u": "setblock需要的权限等级Java版：2基岩版：1限制条件启用作弊[仅基岩版]将指定位置的方块更改为另一个方块。语法Java版setblock <pos> <block> [destroy|keep|replace|strict]基岩版"
+},
+{
+"c": "setworldspawn",
+"u": "setworldspawn需要的权限等级Java版：2基岩版：1限制条件启用作弊[仅基岩版]设置世界出生点。用法在基岩版中，此命令只能用于主世界，不能用于其他维度。出生点扩散半径由“重生点半径”（respawn_radius[仅Java版]"
+},
+{
+"c": "spreadplayers",
+"u": "spreadplayers需要的权限等级Java版：2基岩版：1限制条件启用作弊[仅基岩版]把实体随机传送到区域内地表的某个位置。用法在Java版中，实体总是会被传送到某个位置最顶部的非空气方块上。在under模式下，实体则被传送到指定的最"
+},
+{
+"c": "stop",
+"u": "stop需要的权限等级4限制条件启用作弊[仅基岩版]仅专用服务端将所有玩家踢出服务器，把所有的更改保存到硬盘，然后关闭服务端。语法stop结果永远执行成功。输出命令版本条件成功次数/execute store success .../exe"
+},
+{
+"c": "stopsound",
+"u": "stopsound需要的权限等级Java版：2基岩版：1限制条件启用作弊[仅基岩版]停止声音事件播放。语法Java版stopsound <targets> * <sound>停止指定的声音（省略类别）。stopsound <targets>"
+},
+{
+"c": "summon",
+"u": "summon需要的权限等级Java版：2基岩版：1限制条件启用作弊[仅基岩版]召唤一个实体。语法Java版summon <entity> [<pos>]summon <entity> <pos> [<nbt>]基岩版summon <enti"
+},
+{
+"c": "tellraw",
+"u": "tellraw需要的权限等级Java版：2基岩版：1限制条件无向一个或多个玩家发送一条以文本组件表示的消息。语法Java版tellraw <targets> <message>基岩版tellraw <target: target> <raw"
+},
+{
+"c": "whitelist",
+"u": "whitelist（Java版）需要的权限等级3限制条件仅专用服务端allowlist（基岩版）别名/whitelist需要的权限等级4限制条件启用作弊仅专用服务端此命令用于管理服务器中白名单。用法在Java版中，服务器的管理员永远能够登录"
+}
+]
