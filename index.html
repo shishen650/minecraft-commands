@@ -387,6 +387,7 @@
   .gen-type.on{border-color:var(--blue-600);background:linear-gradient(135deg,var(--blue-50),var(--panel));box-shadow:0 0 0 3px rgba(37,99,168,.12)}
   .gen-type .gi{width:38px;height:38px;border-radius:10px;background:var(--blue-100);display:flex;align-items:center;justify-content:center;font-size:19px;flex:none}
   .gen-type .gt{font-size:14px;font-weight:700;color:var(--blue-900)}
+  .gen-cnt-badge{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--blue-600);color:#fff;font-size:11px;font-weight:700;vertical-align:middle}
   .gen-type .gd{font-size:11.5px;color:var(--ink-soft);margin-top:1px}
   .gen-panel{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:14px;background:var(--panel);overflow:hidden;min-height:480px}
   .gen-panel-head{padding:16px 20px;border-bottom:1px solid var(--line);background:linear-gradient(135deg,var(--blue-50),var(--panel))}
@@ -417,6 +418,11 @@
   .gen-all-title{font-family:var(--mono);font-size:15px;color:var(--blue-900);font-weight:700;margin-bottom:10px}
   .gen-all-syntax{font-size:11px;color:var(--ink-soft);margin-top:8px;line-height:1.5}
   .gen-cmd-list{display:flex;flex-direction:column;gap:6px;max-height:calc(100vh - 280px);overflow-y:auto;padding-right:4px}
+  .gen-syn-bar{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding:10px 12px;background:var(--blue-50);border:1px solid var(--blue-200);border-radius:10px;flex-wrap:wrap}
+  .gen-syn-bar .gsb-label{font-size:12px;font-weight:700;color:var(--blue-800);flex:none}
+  .gen-syn-bar select{flex:1;min-width:200px;height:36px;padding:0 12px;border:1px solid var(--blue-300);border-radius:8px;background:var(--bg);color:var(--ink);font-size:12.5px;outline:none;cursor:pointer;font-family:var(--mono)}
+  .gen-syn-bar .gsb-count{font-size:11px;color:var(--ink-soft);flex:none}
+  .gen-syn-bar select:focus{border-color:var(--blue-500);box-shadow:0 0 0 3px rgba(37,99,168,.12)}
   .gen-exec-sub{border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:10px;background:var(--panel);box-shadow:var(--shadow)}
   .gen-exec-head{display:flex;align-items:center;gap:8px}
   .gen-exec-idx{flex:none;width:22px;height:22px;border-radius:7px;background:var(--blue-600);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center}
@@ -1469,6 +1475,7 @@ const view = document.getElementById("view");
 // 指令生成器（可视化表单）
 let GEN_ENUMS = null;   // {item,entity,effect,enchant,block -> {id:中文名}}
 let GEN_CUR = null;       // 当前选中命令名
+let GEN_SYN_IDX = 0;       // 当前选中语法重载索引
 let GEN_FORM = {};        // 当前表单值
 let GEN_QUERY = "";       // 搜索关键词
 let GEN_COMMANDS_DATA = []; // 从 gen_commands.js 加载的77条命令
@@ -1527,7 +1534,7 @@ function genFilteredCommands(){
   const q=GEN_QUERY.trim().toLowerCase();
   if(!q) return GEN_COMMANDS_DATA;
   return GEN_COMMANDS_DATA.filter(c=>
-    c.name.toLowerCase().includes(q)||(c.cmd||"").toLowerCase().includes(q)||(c.hint||"").toLowerCase().includes(q)
+    c.name.toLowerCase().includes(q)||(c.cmd||"").toLowerCase().includes(q)||(c.cn||c.name||"").toLowerCase().includes(q)
   );
 }
 
@@ -1536,11 +1543,14 @@ function genRenderList(){
   const list=document.getElementById("genCmdList");
   if(!list) return;
   const items=genFilteredCommands();
-  list.innerHTML=items.map(c=>`
+  list.innerHTML=items.map(c=>{
+    const cnt=(c.syntaxes||[]).length;
+    return `
     <div class="gen-type ${GEN_CUR===c.name?"on":""}" data-gen="${c.name}" onclick="genSelect('${c.name}')">
-      <div class="gt">${c.name}</div>
-      <div class="gd">${c.hint||""}</div>
-    </div>`).join("")||`<div class="gen-empty">没有匹配的命令</div>`;
+      <div class="gt">${c.cn||c.name} ${cnt>1?`<span class="gen-cnt-badge">${cnt}</span>`:""}</div>
+      <div class="gd">${(c.syntaxes&&c.syntaxes[0]&&c.syntaxes[0].syntax)||c.name}</div>
+    </div>`;
+  }).join("")||`<div class="gen-empty">没有匹配的命令</div>`;
 }
 
 // ---------- 渲染右侧参数表单 ----------
@@ -1549,56 +1559,107 @@ function genRenderForm(){
   const body=document.getElementById("genBody");
   const head=document.getElementById("genHead");
   if(!body||!cmd) return;
-  if(head) head.innerHTML=`<h3>/${cmd.cmd}</h3><p>${cmd.syntax}</p>${cmd.hint?`<p style="font-size:12px;color:var(--ink-soft);margin-top:3px">${cmd.hint}</p>`:""}`;
-  if(cmd.name==="execute"){ genRenderExecForm(body); return; }
+  // execute 保持专用可视化编辑器
+  if(cmd.name==="execute"){ if(head) head.innerHTML=`<h3>/execute</h3><p>可视化拼接 execute 子命令</p>`; genRenderExecForm(body); return; }
+  // 语法重载
+  const syns=cmd.syntaxes||[cmd.syntax?{syntax:cmd.syntax,params:cmd.params||[],fixed:cmd.fixed||[]}:{syntax:cmd.cmd,params:[],fixed:[]}];
+  if(GEN_SYN_IDX>=syns.length) GEN_SYN_IDX=0;
+  const syn=syns[GEN_SYN_IDX];
+  if(head) head.innerHTML=`<h3>/${cmd.cmd}</h3><p>${syn.syntax}</p>${cmd.hint?`<p style="font-size:12px;color:var(--ink-soft);margin-top:3px">${cmd.hint}</p>`:""}`;
+  // 语法重载选择条
   let html="";
-  if(cmd.params&&cmd.params.length>0){
-    cmd.params.forEach((p,i)=>{
-      const k=String(i);
-      const label=p.name;
-      const opt=p.opt?' <span style="color:var(--ink-soft);font-weight:400">(可选)</span>':"";
-      const t=p.type;
-      if(t==="target"){
-        html+=`<div class="gen-field"><label>${label}${opt}</label><select data-k="${k}" onchange="genBuild()">${GEN_TARGETS.map(([v,l])=>`<option value="${v}">${v}（${l}）</option>`).join("")}</select></div>`;
-      }else if(t==="item"){
-        html+=`<div class="gen-field"><label>${label}${opt}</label><select data-k="${k}" onchange="genBuild()">${genOptById("item")}</select></div>`;
-      }else if(t==="block"){
-        html+=`<div class="gen-field"><label>${label}${opt}</label><select data-k="${k}" onchange="genBuild()">${genOptById("block")}</select></div>`;
-      }else if(t==="effect"){
-        html+=`<div class="gen-field"><label>${label}${opt}</label><select data-k="${k}" onchange="genBuild()">${genOptById("effect")}</select></div>`;
-      }else if(t==="enchant"){
-        html+=`<div class="gen-field"><label>${label}${opt}</label><select data-k="${k}" onchange="genBuild()">${genOptById("enchant")}</select></div>`;
-      }else if(t==="entity"){
-        html+=`<div class="gen-field"><label>${label}${opt}</label><select data-k="${k}" onchange="genBuild()">${genOptById("entity")}</select></div>`;
-      }else if(t==="difficulty"){
-        html+=`<div class="gen-field"><label>${label}${opt}</label><select data-k="${k}" onchange="genBuild()">${GEN_DIFFICULTIES.map(([v,l])=>`<option value="${v}">${l}（${v}）</option>`).join("")}</select></div>`;
-      }else if(t==="gamemode"){
-        html+=`<div class="gen-field"><label>${label}${opt}</label><select data-k="${k}" onchange="genBuild()">${GEN_GAMEMODES.map(([v,l])=>`<option value="${v}">${l}（${v}）</option>`).join("")}</select></div>`;
-      }else if(t==="weather"){
-        html+=`<div class="gen-field"><label>${label}${opt}</label><select data-k="${k}" onchange="genBuild()">${GEN_WEATHERS.map(([v,l])=>`<option value="${v}">${l}（${v}）</option>`).join("")}</select></div>`;
-      }else if(t==="coord"||t==="coord1"||t==="coord2"){
-        html+=`<div class="gen-field"><label>${label}${opt}</label><input type="text" data-k="${k}" placeholder="x y z" oninput="genBuild()"></div>`;
-      }else if(t==="num"){
-        html+=`<div class="gen-field"><label>${label}${opt}</label><input type="number" data-k="${k}" value="1" min="0" oninput="genBuild()"></div>`;
-      }else if(t==="time"){
-        html+=`<div class="gen-field"><label>${label}${opt}</label><input type="text" data-k="${k}" placeholder="如 1000" oninput="genBuild()"></div>`;
-      }else if(t==="bool"){
-        html+=`<div class="gen-field"><label>${label}${opt}</label><select data-k="${k}" onchange="genBuild()"><option value="false">否</option><option value="true">是</option></select></div>`;
-      }else if(t==="add_remove"){
-        html+=`<div class="gen-field"><label>${label}${opt}</label><select data-k="${k}" onchange="genBuild()"><option value="add">add（添加）</option><option value="remove">remove（移除）</option></select></div>`;
-      }else if(t==="text_align"){
-        html+=`<div class="gen-field"><label>${label}${opt}</label><select data-k="${k}" onchange="genBuild()"><option value="title">title（大标题）</option><option value="subtitle">subtitle（副标题）</option><option value="actionbar">actionbar（快捷栏上方）</option></select></div>`;
-      }else if(t==="text"){
-        const ph=genPlaceholder(p.name);
-        html+=`<div class="gen-field"><label>${label}${opt}</label><input type="text" data-k="${k}" placeholder="${ph}" oninput="genBuild()"></div>`;
-      }else{
-        html+=`<div class="gen-field"><label>${label}${opt}</label><input type="text" data-k="${k}" placeholder="${genPlaceholder(p.name)}" oninput="genBuild()"></div>`;
-      }
-    });
+  if(syns.length>1){
+    html+=`<div class="gen-syn-bar">
+      <span class="gsb-label">语法选择</span>
+      <select onchange="genSynSelect(this.value)">
+        ${syns.map((s,i)=>`<option value="${i}" ${i===GEN_SYN_IDX?"selected":""}>${s.syntax}</option>`).join("")}
+      </select>
+      <span class="gsb-count">${syns.length} 种用法</span>
+    </div>`;
   }
-  if(!html) html=`<div class="gen-empty">此命令无参数，直接运行即可</div>`;
-  body.innerHTML=html;
+  // 固定词提示（如 add/clear/set 等子命令词）
+  if(syn.fixed&&syn.fixed.length>0&&syn.fixed[0]!=="..."){
+    html+=`<div class="gen-field"><label>子命令 <span class="gf-hint">(固定)</span></label><input type="text" value="${syn.fixed.join(" ")}" readonly style="background:var(--blue-50);color:var(--blue-800);font-family:var(--mono)"></div>`;
+  }
+  // 参数表单
+  if(syn.params&&syn.params.length>0){
+    syn.params.forEach((p,i)=>{
+      const k=String(i);
+      const label=p.cn||p.name;
+      const opt=p.opt?' <span style="color:var(--ink-soft);font-weight:400">(可选)</span>':"";
+      const type=p.type||p.typeCn||"text";
+      html+=genFieldHtml(p,k,label,opt,type);
+    });
+  }else{
+    html+=`<div class="gen-empty">此用法无参数，直接运行即可</div>`;
+  }
+  body.innerHTML=html||`<div class="gen-empty">此命令无参数，直接运行即可</div>`;
   genBuild();
+}
+
+// 单个参数控件渲染（新数据格式）
+function genFieldHtml(p,k,label,opt,type){
+  // 判断类型
+  const t=String(type).toLowerCase();
+  const isTarget=t.includes("target")||t.includes("selector")||p.name==="player"||p.name==="playername"||p.name==="victim"||p.name==="players"||p.name==="entity"||p.name==="selector";
+  const isCoord=t.includes("x y z")||t.includes("position")||t.includes("coord")||p.type?.includes("x y z");
+  const isInt=t.includes("int")||t==="num"||t==="count"||t==="amount"||t==="slotid"||t==="radius"||t==="duration";
+  const isFloat=t.includes("float")||t==="value"||t==="speed"||t==="intensity"||t==="spreaddistance"||t==="maxrange"||t==="maxheight"||t==="scale"||t==="rotation";
+  const isEffect=t.includes("effect")&&p.name==="effect";
+  const isItem=t.includes("item")&&(p.name==="itemname"||p.name==="item"||p.name==="tilename");
+  const isBlock=t.includes("block")&&(p.name==="tilename"||p.name==="block"||p.name==="tileName");
+  const isBool=t.includes("bool")||p.name==="hideparticles"||p.name==="preload"||p.name==="checkforblocks"||p.name==="includeentities"||p.name==="includeblocks"||p.name==="waterlogged"||p.name==="keepjigsaws"||p.name==="ignorestartheight";
+  const isGameMode=p.name==="gamemode"||p.name==="gamemode";
+  const isWeather=p.name==="weather"||p.type?.includes("clear|rain");
+  const isEnum = p.type && (p.type.includes("|") || p.type.includes("Mode") || p.type.includes("Type") || p.type.includes("Option") || p.type.includes("Spec") || p.type.includes("operator") || p.type.includes("Ability") || p.type.includes("Direction") || p.type.includes("Rotation") || p.type.includes("Mirror") || p.type.includes("Easing") || p.type.includes("Settings") || p.type.includes("Boolean") || p.name==="shakeType" || p.name==="targetmode" || p.name==="oldblockhandling" || p.name==="olditemhandling" || p.name==="maskmode" || p.name==="clonemode" || p.name==="scanmode" || p.name==="savemode" || p.name==="slottype" || p.name==="operation");
+  const isTime=p.name==="time"||p.name==="fadein"||p.name==="stay"||p.name==="fadeout"||t.includes("timespec");
+
+  if(isTarget){
+    return `<div class="gen-field"><label>${label}${opt}</label><select data-k="${k}" onchange="genBuild()">${GEN_TARGETS.map(([v,l])=>`<option value="${v}">${v}（${l}）</option>`).join("")}</select></div>`;
+  }
+  if(isGameMode){
+    return `<div class="gen-field"><label>${label}${opt}</label><select data-k="${k}" onchange="genBuild()">${GEN_GAMEMODES.map(([v,l])=>`<option value="${v}">${l}（${v}）</option>`).join("")}</select></div>`;
+  }
+  if(isWeather){
+    return `<div class="gen-field"><label>${label}${opt}</label><select data-k="${k}" onchange="genBuild()">${GEN_WEATHERS.map(([v,l])=>`<option value="${v}">${l}（${v}）</option>`).join("")}</select></div>`;
+  }
+  if(isEffect){
+    return `<div class="gen-field"><label>${label}${opt}</label><select data-k="${k}" onchange="genBuild()">${genOptById("effect")}</select></div>`;
+  }
+  if(isItem){
+    return `<div class="gen-field"><label>${label}${opt}</label><select data-k="${k}" onchange="genBuild()">${genOptById("item")}</select></div>`;
+  }
+  if(isBlock){
+    return `<div class="gen-field"><label>${label}${opt}</label><select data-k="${k}" onchange="genBuild()">${genOptById("block")}</select></div>`;
+  }
+  if(isEnum){
+    // 枚举：从类型声明中提取选项 (如 clear|rain|thunder, destroy|keep|replace)
+    const opts=p.type.split("|").map(x=>x.trim()).filter(Boolean);
+    return `<div class="gen-field"><label>${label}${opt}</label><select data-k="${k}" onchange="genBuild()">${opts.map(v=>`<option value="${v}">${v}</option>`).join("")}</select></div>`;
+  }
+  if(isBool){
+    return `<div class="gen-field"><label>${label}${opt}</label><select data-k="${k}" onchange="genBuild()"><option value="true">是</option><option value="false">否</option></select></div>`;
+  }
+  if(isCoord){
+    return `<div class="gen-field"><label>${label}${opt}</label><input type="text" data-k="${k}" placeholder="x y z" oninput="genBuild()"></div>`;
+  }
+  if(isInt){
+    return `<div class="gen-field"><label>${label}${opt}</label><input type="number" data-k="${k}" value="1" oninput="genBuild()"></div>`;
+  }
+  if(isFloat){
+    return `<div class="gen-field"><label>${label}${opt}</label><input type="number" step="0.01" data-k="${k}" value="1" oninput="genBuild()"></div>`;
+  }
+  if(isTime){
+    return `<div class="gen-field"><label>${label}${opt}</label><input type="text" data-k="${k}" placeholder="如 1000" oninput="genBuild()"></div>`;
+  }
+  // 其他文本
+  return `<div class="gen-field"><label>${label}${opt}</label><input type="text" data-k="${k}" placeholder="输入${label}" oninput="genBuild()"></div>`;
+}
+
+// 语法重载切换
+function genSynSelect(idx){
+  GEN_SYN_IDX=Number(idx);
+  genRenderForm();
 }
 
 // ---------- execute 可视化子命令渲染 ----------
@@ -1700,25 +1761,36 @@ function genBuild(){
   const formVals={};
   if(body){ body.querySelectorAll("[data-k]").forEach(el=>{ formVals[el.getAttribute("data-k")]=el.type==="checkbox"?(el.checked?"true":""):el.value; }); }
   GEN_FORM=formVals;
-  const tokens=cmd.syntax.split(/\s+/);
-  let result="/"+tokens[0];
-  let pi=0;
-  for(let i=1;i<tokens.length;i++){
-    const t=tokens[i];
-    if(t==="..."){ result+=" ..."; continue; }
-    if(!t.startsWith("<")&&!t.startsWith("[")){ result+=" "+t; continue; }
-    const isOpt=t.startsWith("[");
+  // execute 专用
+  if(cmd.name==="execute"){ genExecBuild(); return; }
+  const syns=cmd.syntaxes||[cmd.syntax?{syntax:cmd.syntax,params:cmd.params||[],fixed:cmd.fixed||[]}:{syntax:cmd.cmd,params:[],fixed:[]}];
+  const syn=syns[GEN_SYN_IDX]||syns[0];
+  const first=syn.syntax.split(/\s+/)[0];
+  const rest=syn.syntax.slice(first.length).trim();
+  let result="/"+first;
+  // 用正则整体匹配参数块（<...> 或 [...]），坐标等含空格参数不会被拆裂
+  const re=/\[[^\]]*\]|<[^>]*>/g;
+  let pi=0,pos=0,m;
+  while((m=re.exec(rest))){
+    const gap=rest.slice(pos,m.index).split(/\s+/).filter(Boolean);
+    gap.forEach(t=>{ result+=" "+t; });
+    const tok=m[0];
+    const isOpt=tok.startsWith("[");
     const val=formVals[String(pi)];
     if(isOpt){ if(val&&val!==""&&val!=="false") result+=" "+val; }
     else{ result+=" "+(val||""); }
     pi++;
+    pos=re.lastIndex;
   }
+  const tail=rest.slice(pos).split(/\s+/).filter(Boolean);
+  tail.forEach(t=>{ result+=" "+t; });
   out.textContent=result.trim();
 }
 
 // ---------- 选中命令 ----------
 function genSelect(name){
   GEN_CUR=name;
+  GEN_SYN_IDX=0;
   genRenderList();
   genRenderForm();
 }
