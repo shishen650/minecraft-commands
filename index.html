@@ -1489,14 +1489,24 @@ const GEN_EXEC_SUB = [
   {type:"as", label:"as 以…身份执行", params:[{name:"目标选择器", type:"target"}]},
   {type:"at", label:"at 在…位置执行", params:[{name:"目标选择器", type:"target"}]},
   {type:"positioned", label:"positioned 定位到坐标", params:[{name:"坐标", type:"coord"}]},
+  {type:"positioned as", label:"positioned as 定位到实体位置", params:[{name:"目标选择器", type:"target"}]},
   {type:"rotated", label:"rotated 旋转角度", params:[{name:"偏航角", type:"num"},{name:"俯仰角", type:"num"}]},
+  {type:"rotated as", label:"rotated as 采用实体朝向", params:[{name:"目标选择器", type:"target"}]},
   {type:"facing", label:"facing 面向坐标", params:[{name:"坐标", type:"coord"}]},
-  {type:"facing entity", label:"facing entity 面向实体", params:[{name:"目标选择器", type:"target"}]},
-  {type:"in", label:"in 指定维度", params:[{name:"维度", type:"text"}]},
+  {type:"facing entity", label:"facing entity 面向实体", params:[{name:"目标选择器", type:"target"},{name:"眼睛/脚部", type:"anchor", opt:true}]},
+  {type:"in", label:"in 指定维度", params:[{name:"维度", type:"dimension"}]},
+  {type:"align", label:"align 对齐方块坐标", params:[{name:"坐标轴", type:"text"}]},
+  {type:"anchored", label:"anchored 设置基准点", params:[{name:"基准点", type:"anchor"}]},
   {type:"if entity", label:"if entity 如果(实体存在)", params:[{name:"目标选择器", type:"target"}]},
-  {type:"if block", label:"if block 如果(方块匹配)", params:[{name:"坐标", type:"coord"},{name:"方块", type:"block"}]},
+  {type:"if block", label:"if block 如果(方块匹配)", params:[{name:"坐标", type:"coord"},{name:"方块", type:"block"}, {name:"方块状态", type:"text", opt:true}]},
+  {type:"if blocks", label:"if blocks 如果(区域匹配)", params:[{name:"起始坐标", type:"coord"},{name:"结束坐标", type:"coord"},{name:"目标坐标", type:"coord"},{name:"扫描模式", type:"scanmode"}]},
+  {type:"if score", label:"if score 如果(分数比较)", params:[{name:"目标", type:"target"},{name:"记分项", type:"text"},{name:"运算符", type:"op"},{name:"源目标", type:"target"},{name:"源记分项", type:"text"}]},
+  {type:"if score matches", label:"if score matches 如果(分数在范围内)", params:[{name:"目标", type:"target"},{name:"记分项", type:"text"},{name:"范围", type:"text"}]},
   {type:"unless entity", label:"unless entity 除非(实体存在)", params:[{name:"目标选择器", type:"target"}]},
-  {type:"unless block", label:"unless block 除非(方块匹配)", params:[{name:"坐标", type:"coord"},{name:"方块", type:"block"}]},
+  {type:"unless block", label:"unless block 除非(方块匹配)", params:[{name:"坐标", type:"coord"},{name:"方块", type:"block"}, {name:"方块状态", type:"text", opt:true}]},
+  {type:"unless blocks", label:"unless blocks 除非(区域匹配)", params:[{name:"起始坐标", type:"coord"},{name:"结束坐标", type:"coord"},{name:"目标坐标", type:"coord"},{name:"扫描模式", type:"scanmode"}]},
+  {type:"unless score", label:"unless score 除非(分数比较)", params:[{name:"目标", type:"target"},{name:"记分项", type:"text"},{name:"运算符", type:"op"},{name:"源目标", type:"target"},{name:"源记分项", type:"text"}]},
+  {type:"unless score matches", label:"unless score matches 除非(分数在范围内)", params:[{name:"目标", type:"target"},{name:"记分项", type:"text"},{name:"范围", type:"text"}]},
 ];
 let GEN_EXEC_SUBS = [{type:"as", vals:{}}];  // 子命令链
 let GEN_EXEC_RUN = "";                       // run 的命令
@@ -1683,6 +1693,14 @@ function genExecFieldHtml(p, idx){
     return `<input type="text" data-exec-k="${idx}" placeholder="x y z" oninput="genExecBuild()">`;
   }else if(t==="num"){
     return `<input type="number" data-exec-k="${idx}" value="0" oninput="genExecBuild()">`;
+  }else if(t==="op"){
+    return `<select data-exec-k="${idx}" onchange="genExecBuild()"><option value="=">= (等于)</option><option value="&lt;">&lt; (小于)</option><option value="&lt;=">&lt;= (小于等于)</option><option value="&gt;">&gt; (大于)</option><option value="&gt;=">&gt;= (大于等于)</option></select>`;
+  }else if(t==="anchor"){
+    return `<select data-exec-k="${idx}" onchange="genExecBuild()"><option value="feet">feet (脚部)</option><option value="eyes">eyes (眼部)</option></select>`;
+  }else if(t==="scanmode"){
+    return `<select data-exec-k="${idx}" onchange="genExecBuild()"><option value="all">all (全部)</option><option value="masked">masked (仅非空气)</option></select>`;
+  }else if(t==="dimension"){
+    return `<select data-exec-k="${idx}" onchange="genExecBuild()"><option value="overworld">overworld (主世界)</option><option value="nether">nether (下界)</option><option value="the_end">the_end (末地)</option></select>`;
   }
   return `<input type="text" data-exec-k="${idx}" placeholder="${p.name}" oninput="genExecBuild()">`;
 }
@@ -1699,7 +1717,8 @@ function genRenderExecForm(body){
     </div>`;
     html+=`<div class="gen-exec-fields">`;
     def.params.forEach((p,i)=>{
-      html+=`<div class="gen-field"><label>${p.name}</label>${genExecFieldHtml(p,i)}</div>`;
+      const optTag=p.opt?' <span style="color:var(--ink-soft);font-weight:400">(可选)</span>':"";
+      html+=`<div class="gen-field"><label>${p.name}${optTag}</label>${genExecFieldHtml(p,i)}</div>`;
     });
     html+=`</div></div>`;
   });
@@ -1740,6 +1759,7 @@ function genExecBuild(){
     else{
       def.params.forEach((p,i)=>{
         const v=(vals[String(i)]||"").trim();
+        if(p.opt && !v) return; // 可选参数留空则跳过
         if(v) seg+=` ${v}`;
         else if(p.type==="target") seg+=` ${GEN_TARGETS[0][0]}`;
       });
