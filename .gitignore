@@ -1,0 +1,20 @@
+# 依赖
+node_modules/
+
+# 开发/调试工具脚本（含本地密钥，不进仓库）
+vision_qa.mjs
+vision_qa.sh
+screenshot.mjs
+check404.mjs
+check404b.mjs
+check_style.mjs
+console_check.mjs
+
+# 截图与临时产物
+shots/
+
+# 任务归档（本地文档）
+任务归档/
+
+# 平台分享包
+.trae-html-share-packages/

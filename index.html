@@ -15,7 +15,7 @@
     --blue-100:#dcebfa;
     --blue-50:#f0f7fd;
     --ink:#10233b;
-    --ink-soft:#4a6b8c;
+    --ink-soft:#3f5e82;
     --line:#dbe7f3;
     --card:#ffffff;
     --bg:#f5faff;
@@ -33,8 +33,8 @@
   }
   /* ---------- 暗色主题 ---------- */
   html[data-theme="dark"]{
-    --ink:#e6eef8;
-    --ink-soft:#8ba3c0;
+    --ink:#e8f1ff;
+    --ink-soft:#d4e1f6;
     --line:#1d3a5e;
     --card:#0e2442;
     --bg:#081527;
@@ -59,8 +59,8 @@
   }
   html[data-theme="dark"] body{
     background:
-      radial-gradient(1200px 600px at 85% -10%, #0d2a4d 0%, transparent 60%),
-      radial-gradient(900px 500px at -10% 20%, #0a2340 0%, transparent 55%),
+      radial-gradient(1100px 560px at 88% -8%, #0c2745 0%, transparent 62%),
+      radial-gradient(900px 500px at 55% 120%, #0a1f3a 0%, transparent 55%),
       var(--bg);
   }
   html[data-theme="dark"] .side-nav a.active,
@@ -291,7 +291,10 @@
   .about-card .about-body .mailto, footer .mailto{color:var(--blue-600);font-weight:600;text-decoration:none;border-bottom:1px dashed var(--blue-400);transition:.2s}
   .about-card .about-body .mailto:hover, footer .mailto:hover{color:var(--blue-500);text-decoration:underline}
   .about-card{overflow:hidden;padding:0}
-  .about-card .about-art{width:100%;height:190px;object-fit:cover;display:block}
+  .about-card .about-art{width:100%;height:190px;object-fit:cover;display:block;
+    -webkit-mask-image:linear-gradient(180deg,#000 80%,transparent 100%);
+    mask-image:linear-gradient(180deg,#000 80%,transparent 100%);
+  }
   .about-card .about-body{padding:28px 30px}
   .about-card .about-body h3{font-size:18px;color:var(--blue-900);margin-bottom:12px}
   .about-card .principle{border:none;background:transparent;padding:0;font-size:14.5px}
@@ -876,12 +879,20 @@
   }
   .daily-card:hover{transform:translateY(-3px);border-color:var(--blue-300);box-shadow:0 18px 40px -16px rgba(23,84,148,.28)}
   .daily-card .dc-badge{
-    flex:none;width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,var(--blue-500),var(--blue-700));
-    color:#fff;display:grid;place-items:center;font-size:24px;box-shadow:0 8px 18px -6px rgba(29,111,209,.5);
+    flex:none;width:52px;height:52px;border-radius:14px;
+    background:linear-gradient(135deg,rgba(47,127,209,.42),rgba(23,84,148,.28));
+    border:1px solid rgba(255,255,255,.42);
+    -webkit-backdrop-filter:blur(12px) saturate(1.6);
+    backdrop-filter:blur(12px) saturate(1.6);
+    color:#fff;display:grid;place-items:center;font-size:24px;
+    box-shadow:0 8px 18px -6px rgba(29,111,209,.42),inset 0 1px 1px rgba(255,255,255,.42);
     transform:translateZ(18px);
   }
   .daily-card .dc-tx{flex:1;min-width:0;transform:translateZ(10px)}
-  .daily-card .dc-tx .dc-tag{font-size:11px;color:var(--blue-600);background:var(--blue-100);padding:2px 10px;border-radius:999px;font-weight:600}
+  .daily-card .dc-tx .dc-tag{
+    font-size:11px;color:var(--blue-700);background:rgba(47,127,209,.15);padding:2px 10px;border-radius:999px;font-weight:600;
+    box-shadow:inset 0 0 0 1px rgba(120,170,235,.28);
+  }
   .daily-card .dc-tx h3{font-size:17px;color:var(--blue-900);margin-top:6px}
   .daily-card .dc-tx .dc-cmd{font-size:13px;color:var(--ink-soft);margin-top:6px;font-family:var(--mono);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .daily-card .dc-go{flex:none;color:var(--blue-400);font-size:20px;transform:translateZ(14px)}
@@ -924,7 +935,7 @@
     content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;
     background:#fff;box-shadow:0 2px 5px rgba(0,0,0,.25);transition:.25s;
   }
-  html[data-theme="dark"] .theme-toggle .tt-sw{background:var(--blue-600)}
+  html[data-theme="dark"] .theme-toggle .tt-sw{background:linear-gradient(180deg,rgba(75,147,224,.55),rgba(58,110,168,.48));box-shadow:inset 0 1px 2px rgba(0,0,0,.30)}
   html[data-theme="dark"] .theme-toggle .tt-sw::after{left:18px}
 
   /* ---------- 移动端顶栏 / 遮罩 / 抽屉（默认隐藏，仅移动端显示） ---------- */
@@ -1061,6 +1072,437 @@
     .ai-input .send-btn{width:100%;min-width:0;padding:11px 0}
     .seed-toolbar .btn{flex:1}
   }
+
+  /* ================================================== */
+  /* ============ 液态玻璃 Liquid Glass 全站 UI ============ */
+  /* ================================================== */
+
+  /* —— 玻璃材质变量（薄透苹果液态玻璃）—— */
+  :root{
+    --lg-bg-1:rgba(255,255,255,.19);
+    --lg-bg-2:rgba(255,255,255,.08);
+    --lg-bg-h1:rgba(255,255,255,.44);
+    --lg-bg-h2:rgba(255,255,255,.28);
+    --lg-brd:rgba(255,255,255,.50);
+    --lg-brd-soft:rgba(255,255,255,.36);
+    --lg-input:rgba(255,255,255,.30);
+    --lg-input-brd:rgba(96,140,192,.45);
+    --lg-chip:rgba(47,127,209,.12);
+    --lg-hi:rgba(255,255,255,.92);
+    --lg-hi-soft:rgba(255,255,255,.42);
+    --lg-lo:rgba(130,170,215,.20);
+    --lg-bf:blur(24px) saturate(1.9) brightness(1.03);
+    --lg-shadow:0 12px 40px -8px rgba(38,78,170,.18),0 4px 12px -2px rgba(38,78,170,.10),inset 0 1px 1px rgba(255,255,255,.66),inset 0 -1px 1px rgba(23,84,148,.13),inset 1px 0 1px var(--lg-hi-soft),inset -1px 0 1px var(--lg-hi-soft);
+    --lg-shadow-hover:0 18px 44px -14px rgba(23,84,148,.30),0 4px 12px -4px rgba(23,84,148,.14),inset 0 1px 1px rgba(255,255,255,.66),inset 0 -1px 1px rgba(23,84,148,.12);
+  }
+  html[data-theme="dark"]{
+    --lg-bg-1:rgba(20,36,64,.24);
+    --lg-bg-2:rgba(10,22,42,.13);
+    --lg-bg-h1:rgba(24,44,78,.38);
+    --lg-bg-h2:rgba(13,30,56,.28);
+    --lg-brd:rgba(215,235,255,.17);
+    --lg-brd-soft:rgba(215,235,255,.09);
+    --lg-input:rgba(9,23,44,.42);
+    --lg-input-brd:rgba(158,192,246,.22);
+    --lg-chip:rgba(76,140,220,.15);
+    --lg-hi:rgba(198,224,255,.28);
+    --lg-hi-soft:rgba(198,224,255,.14);
+    --lg-lo:rgba(0,0,0,.30);
+    --lg-bf:blur(24px) saturate(2.0);
+    --lg-shadow:0 12px 40px -8px rgba(8,18,52,.42),0 4px 12px -2px rgba(8,18,52,.28),inset 0 1px 1px var(--lg-hi),inset 0 -1px 1px var(--lg-lo),inset 1px 0 1px var(--lg-hi-soft),inset -1px 0 1px var(--lg-hi-soft);
+    --lg-shadow-hover:0 20px 48px -14px rgba(8,18,52,.55),0 4px 14px -4px rgba(8,18,52,.36),inset 0 1px 1px rgba(206,230,255,.32),inset 0 -1px 1px var(--lg-lo);
+  }
+
+  /* —— 流光背景（玻璃下缓慢流动的极光色斑）—— */
+  body::before,body::after{content:"";position:fixed;inset:-12%;z-index:-1;pointer-events:none}
+  body::before{
+    background:
+      radial-gradient(42% 48% at 8% 16%,rgba(47,127,209,.48) 0%,transparent 70%),
+      radial-gradient(36% 40% at 90% 8%,rgba(126,217,231,.52) 0%,transparent 68%),
+      radial-gradient(46% 52% at 94% 84%,rgba(147,112,219,.40) 0%,transparent 72%),
+      radial-gradient(34% 40% at 45% 55%,rgba(59,130,246,.26) 0%,transparent 70%);
+    filter:blur(46px);
+    animation:lgAurora1 30s ease-in-out infinite alternate;
+  }
+  body::after{
+    background:
+      radial-gradient(38% 44% at 14% 86%,rgba(94,197,207,.42) 0%,transparent 70%),
+      radial-gradient(30% 36% at 60% 30%,rgba(186,230,253,.48) 0%,transparent 68%),
+      radial-gradient(28% 34% at 36% 62%,rgba(129,140,248,.28) 0%,transparent 70%);
+    filter:blur(46px);
+    animation:lgAurora2 42s ease-in-out infinite alternate;
+  }
+  html[data-theme="dark"] body::before{
+    background:
+      radial-gradient(46% 52% at 72% 10%,rgba(59,130,246,.08) 0%,transparent 82%),
+      radial-gradient(40% 44% at 94% 55%,rgba(34,211,238,.06) 0%,transparent 80%),
+      radial-gradient(42% 48% at 80% 96%,rgba(139,92,246,.06) 0%,transparent 82%),
+      radial-gradient(36% 42% at 88% 38%,rgba(37,99,235,.05) 0%,transparent 80%);
+    filter:blur(96px);
+  }
+  html[data-theme="dark"] body::after{
+    background:
+      radial-gradient(42% 48% at 80% 78%,rgba(6,182,212,.05) 0%,transparent 82%),
+      radial-gradient(34% 40% at 66% 32%,rgba(96,165,250,.04) 0%,transparent 80%),
+      radial-gradient(30% 36% at 92% 66%,rgba(129,140,248,.04) 0%,transparent 80%);
+    filter:blur(96px);
+  }
+  @keyframes lgAurora1{from{transform:translate3d(-1.5%,-1%,0) scale(1)}to{transform:translate3d(1.5%,1.5%,0) scale(1.05)}}
+  @keyframes lgAurora2{from{transform:translate3d(1.5%,1%,0) scale(1.04)}to{transform:translate3d(-1.5%,-1.5%,0) scale(1)}}
+
+  /* —— 玻璃卡片基础：半透明底 + 高光描边 + 内外光影 —— */
+  .home-card,.list-item,.detail-card,.about-card,.wiki-card,.daily-card,.recent-item,
+  .search-result-item,.ts-var,.ts-limit,.ts-hist,.ts-group,.branch-group,
+  .param-item,.syntax-item,.idq-search,.idq-cat,.idq-item,.music-placeholder,
+  .tools-empty,.search-empty,.ts-hero,.ts-var-detail,.ai-settings,.layer-panel,
+  .structure-popup,.gen-panel,.ai-chat,.gen-type,.gen-exec-sub,.gen-all-item,
+  .back-btn,.detail-nav button,.copy-mini,.ts-link,.theme-toggle,
+  .m-menu-btn,.m-theme-btn,.m-close{
+    background:linear-gradient(160deg,var(--lg-bg-1),var(--lg-bg-2) 60%,var(--lg-bg-1));
+    border:1px solid var(--lg-brd);
+    box-shadow:var(--lg-shadow);
+  }
+  /* 需要作为定位容器的卡片（悬浮元素除外） */
+  .home-card,.list-item,.detail-card,.wiki-card,.daily-card,.recent-item,
+  .search-result-item,.ts-var,.ts-limit,.ts-hist,.ts-group,.branch-group,
+  .param-item,.syntax-item,.idq-search,.idq-cat,.idq-item,.music-placeholder,
+  .tools-empty,.search-empty,.ts-hero,.ts-var-detail,.ai-settings,.layer-panel,
+  .gen-panel,.ai-chat,.gen-type,.gen-exec-sub,.gen-all-item,
+  .back-btn,.detail-nav button,.copy-mini,.ts-link,.theme-toggle,
+  .m-menu-btn,.m-theme-btn{position:relative}
+
+  /* —— 毛玻璃：单屏数量少的容器加实时模糊 + 饱和提升 + 微提亮 —— */
+  .sidebar,.m-topbar,.home-card,.daily-card,.detail-card,.about-card,.wiki-card,
+  .search-result-item,.structure-popup,.ts-hero,.gen-panel,.ai-chat,.ai-settings,
+  .layer-panel,.ts-var,.ts-var-detail,.ts-limit,.ts-hist,.ts-group,.branch-group,
+  .music-placeholder,.tools-empty,.search-empty,.recent-item,.idq-search,
+  .gen-type,.gen-exec-sub,.theme-toggle,#toast{
+    -webkit-backdrop-filter:var(--lg-bf);
+    backdrop-filter:var(--lg-bf);
+  }
+
+  /* —— 边缘折射：SVG 位移滤镜（Safari）+ 渐变边缘高光环（全浏览器，模拟玻璃边缘反光）—— */
+  .home-card::before,.detail-card::before,.about-card::before,.wiki-card::before,.daily-card::after,
+  .search-result-item::before,.structure-popup::before,.ts-hero::before,
+  .gen-panel::before,.ai-chat::before,.music-placeholder::before,
+  .tools-empty::before,.search-empty::before{
+    content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:1;
+    padding:11px;opacity:.62;
+    background:
+      linear-gradient(180deg,rgba(255,255,255,.62),rgba(255,255,255,.14) 30%,rgba(255,255,255,0) 50%,rgba(170,205,250,.08) 86%,rgba(170,205,250,.24)),
+      linear-gradient(90deg,rgba(255,255,255,.30),rgba(255,255,255,0) 24%,rgba(255,255,255,0) 76%,rgba(255,255,255,.24));
+    -webkit-backdrop-filter:blur(1px);
+    backdrop-filter:url(#lgDistort);
+    -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+    mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+    -webkit-mask-composite:xor;
+    mask-composite:exclude;
+  }
+  /* 面板类容器用柔和折射 */
+  .search-result-item::before,.structure-popup::before,.ts-hero::before,
+  .gen-panel::before,.ai-chat::before,.music-placeholder::before,
+  .tools-empty::before,.search-empty::before{
+    backdrop-filter:url(#lgDistortSoft);
+  }
+  .structure-popup::before{padding:7px}
+  /* 暗色背景下折射环更收敛，避免边缘波浪毛边 */
+  html[data-theme="dark"] .home-card::before,html[data-theme="dark"] .detail-card::before,
+  html[data-theme="dark"] .about-card::before,html[data-theme="dark"] .wiki-card::before,
+  html[data-theme="dark"] .daily-card::after,html[data-theme="dark"] .search-result-item::before,
+  html[data-theme="dark"] .structure-popup::before,html[data-theme="dark"] .ts-hero::before,
+  html[data-theme="dark"] .gen-panel::before,html[data-theme="dark"] .ai-chat::before,
+  html[data-theme="dark"] .music-placeholder::before,html[data-theme="dark"] .tools-empty::before,
+  html[data-theme="dark"] .search-empty::before{opacity:.42}
+
+  /* —— 悬停：玻璃光泽增强 —— */
+  .home-card:hover,.wiki-card:hover,.daily-card:hover{
+    box-shadow:var(--lg-shadow-hover);
+    border-color:rgba(255,255,255,.95);
+  }
+  html[data-theme="dark"] .home-card:hover,
+  html[data-theme="dark"] .wiki-card:hover,
+  html[data-theme="dark"] .daily-card:hover{border-color:rgba(168,200,250,.40)}
+  .list-item:hover,.recent-item:hover,.idq-item:hover,.gen-all-item:hover{
+    background:linear-gradient(160deg,var(--lg-bg-h1),var(--lg-bg-h2) 60%,var(--lg-bg-h1));
+  }
+
+  /* —— 首页 / 服务卡片悬停流光扫过 —— */
+  /* 流光静止时停在卡片左侧外，必须裁切，否则第一列卡片的流光会压到侧边栏上形成斜向光带 */
+  .home-card,.wiki-card{overflow:hidden}
+  .home-card::after,.wiki-card::after{
+    content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:2;
+    background:linear-gradient(115deg,transparent 32%,rgba(255,255,255,.38) 50%,transparent 68%);
+    transform:translateX(-135%) skewX(-6deg);
+    transition:transform .9s cubic-bezier(.22,1,.36,1);
+  }
+  .home-card:hover::after,.wiki-card:hover::after{transform:translateX(135%) skewX(-6deg)}
+  html[data-theme="dark"] .home-card::after,
+  html[data-theme="dark"] .wiki-card::after{background:linear-gradient(115deg,transparent 32%,rgba(255,255,255,.14) 50%,transparent 68%)}
+
+  /* —— 侧边栏 / 移动端顶栏：整块液态玻璃（柔和反光，无硬划痕线）—— */
+  .sidebar{
+    background:linear-gradient(180deg,rgba(255,255,255,.40),rgba(255,255,255,.24));
+    border-right:1px solid rgba(255,255,255,.28);
+    -webkit-backdrop-filter:blur(26px) saturate(1.9);
+    backdrop-filter:blur(26px) saturate(1.9);
+    box-shadow:inset 1px 0 14px -8px rgba(255,255,255,.30);
+  }
+  html[data-theme="dark"] .sidebar{
+    background:linear-gradient(180deg,rgba(15,29,55,.62),rgba(7,17,33,.52));
+    border-right:1px solid rgba(215,235,255,.09);
+    box-shadow:6px 0 28px -18px rgba(0,0,0,.55),inset -1px 0 12px -6px rgba(160,200,255,.06);
+  }
+  .m-topbar{
+    background:rgba(255,255,255,.48);
+    border-bottom:1px solid var(--lg-brd);
+    -webkit-backdrop-filter:blur(22px) saturate(1.9);
+    backdrop-filter:blur(22px) saturate(1.9);
+    box-shadow:inset 0 1px 10px -6px rgba(255,255,255,.30);
+  }
+  html[data-theme="dark"] .m-topbar{background:rgba(10,24,45,.55)}
+
+  /* —— 导航选中态：半透蓝色玻璃胶囊（透出背景，非实色）—— */
+  .side-nav a.active,.menu button.on{
+    background:linear-gradient(180deg,rgba(37,99,235,.48),rgba(59,130,246,.34));
+    -webkit-backdrop-filter:blur(14px) saturate(1.8);
+    backdrop-filter:blur(14px) saturate(1.8);
+    box-shadow:0 6px 16px -8px rgba(29,111,209,.42),inset 0 0 0 1px rgba(255,255,255,.32),inset 0 1px 1px rgba(255,255,255,.36),inset 0 -1px 1px rgba(0,0,0,.12);
+  }
+  html[data-theme="dark"] .side-nav a.active,
+  html[data-theme="dark"] .menu button.on{
+    background:linear-gradient(180deg,rgba(59,130,246,.32),rgba(37,99,235,.20));
+    box-shadow:0 6px 16px -8px rgba(15,60,140,.45),inset 0 0 0 1px rgba(190,220,255,.26),inset 0 1px 1px rgba(200,225,255,.24),inset 0 -1px 1px rgba(0,0,0,.18);
+  }
+  .side-nav a:hover{background:rgba(47,127,209,.12);box-shadow:inset 0 0 0 1px rgba(120,170,235,.22)}
+  .menu button:hover{background:rgba(47,127,209,.12)}
+
+  /* —— 首页 Hero：左侧渐变磨砂，右侧渐清晰 —— */
+  .home-hero{border-radius:22px;border:1px solid var(--lg-brd);box-shadow:var(--lg-shadow);background:var(--lg-bg-2)}
+  .home-hero .hero-ov{
+    background:linear-gradient(100deg,rgba(248,251,255,.78) 0%,rgba(248,251,255,.38) 45%,rgba(248,251,255,.04) 78%);
+    -webkit-backdrop-filter:blur(22px) saturate(1.6);
+    backdrop-filter:blur(22px) saturate(1.6);
+    -webkit-mask:linear-gradient(100deg,#000 30%,rgba(0,0,0,.4) 60%,transparent 85%);
+    mask:linear-gradient(100deg,#000 30%,rgba(0,0,0,.4) 60%,transparent 85%);
+  }
+  html[data-theme="dark"] .home-hero .hero-ov{background:linear-gradient(100deg,rgba(7,18,34,.88) 0%,rgba(7,18,34,.56) 45%,rgba(7,18,34,.20) 78%)}
+  /* 暗色模式：Hero 亮图压暗去饱和，避免深色环境突兀 */
+  html[data-theme="dark"] .home-hero .hero-img{filter:brightness(.52) saturate(.72)}
+  /* 暗色模式：导航与卡片图标降饱和，柔和不刺眼 */
+  html[data-theme="dark"] .side-nav a img,
+  html[data-theme="dark"] .home-card .ic img,
+  html[data-theme="dark"] .wiki-card .wiki-ic img{filter:brightness(.88) saturate(.82)}
+
+  /* —— 图标底座 / 迷你按钮：玻璃小片 —— */
+  .home-card .ic,.wiki-card .wiki-ic,.tools-empty-ic,.list-item .num,
+  .search-result-item .sri-ic,.recent-item .ri-ic,.m-menu-btn,.m-theme-btn,.m-close{
+    background:var(--lg-chip);
+    border:1px solid var(--lg-brd-soft);
+    box-shadow:inset 0 1px .5px var(--lg-hi-soft);
+    -webkit-backdrop-filter:blur(8px) saturate(1.5);
+    backdrop-filter:blur(8px) saturate(1.5);
+  }
+
+  /* —— 小标签玻璃化：数量标 / 徽章 —— */
+  .home-card h3 .cnt,.detail-card .badge{
+    background:rgba(47,127,209,.16);
+    -webkit-backdrop-filter:blur(8px) saturate(1.6);
+    backdrop-filter:blur(8px) saturate(1.6);
+    box-shadow:inset 0 0 0 1px rgba(120,170,235,.30),inset 0 1px 1px rgba(255,255,255,.32);
+  }
+  html[data-theme="dark"] .home-card h3 .cnt,
+  html[data-theme="dark"] .detail-card .badge{
+    background:rgba(76,140,220,.26);
+    color:#9dbdff;
+    box-shadow:inset 0 0 0 1px rgba(140,180,240,.24),inset 0 1px 1px rgba(200,225,255,.18);
+  }
+  /* 暗色模式：今日推荐徽章玻璃化（与其他玻璃图标统一） */
+  html[data-theme="dark"] .daily-card .dc-badge{
+    background:linear-gradient(135deg,rgba(59,130,246,.36),rgba(23,64,138,.26));
+    border-color:rgba(190,220,255,.35);
+    box-shadow:0 8px 18px -6px rgba(0,0,0,.45),inset 0 1px 1px rgba(200,225,255,.32);
+  }
+  html[data-theme="dark"] .daily-card .dc-tx .dc-tag{
+    color:#aecdf7;background:rgba(76,140,220,.26);
+    box-shadow:inset 0 0 0 1px rgba(140,180,240,.22);
+  }
+  /* 侧栏分区标题分割线：渐变淡出线（非实色） */
+  .side-block h4{
+    border-bottom:1px solid transparent;
+    background:linear-gradient(90deg,rgba(23,84,148,.26),rgba(23,84,148,.10) 55%,transparent) bottom left/100% 1px no-repeat;
+  }
+  html[data-theme="dark"] .side-block h4{
+    background:linear-gradient(90deg,rgba(140,180,240,.30),rgba(140,180,240,.10) 55%,transparent) bottom left/100% 1px no-repeat;
+  }
+  /* 其余实色小标签统一玻璃化（参数类型 / 符号 / 徽标 / 序号块 / 提示胶囊） */
+  .param-type,.syntax-item .sym,.structure-popup .sp-dim,.ai-src-tag,
+  .gen-input-bar .gen-input-hint,.page-head .tag,.gen-type .gi,
+  .branch-item .b-num,.detail-card .badge,.home-card h3 .cnt{
+    background:rgba(47,127,209,.14);
+    box-shadow:inset 0 0 0 1px rgba(120,170,235,.26),inset 0 1px .5px rgba(255,255,255,.36);
+    -webkit-backdrop-filter:blur(8px) saturate(1.5);
+    backdrop-filter:blur(8px) saturate(1.5);
+  }
+  html[data-theme="dark"] .param-type,
+  html[data-theme="dark"] .syntax-item .sym,
+  html[data-theme="dark"] .structure-popup .sp-dim,
+  html[data-theme="dark"] .ai-src-tag,
+  html[data-theme="dark"] .gen-input-bar .gen-input-hint,
+  html[data-theme="dark"] .page-head .tag,
+  html[data-theme="dark"] .gen-type .gi,
+  html[data-theme="dark"] .branch-item .b-num{
+    background:rgba(76,140,220,.20);
+    box-shadow:inset 0 0 0 1px rgba(140,180,240,.22),inset 0 1px .5px rgba(200,225,255,.14);
+  }
+  /* 亮色模式开关关态轨道加深，与白色滑块拉开对比 */
+  .theme-toggle .tt-sw{background:rgba(23,84,148,.24)}
+
+  /* —— 输入框：玻璃输入面（用 background-color 避免覆盖下拉箭头图）—— */
+  .search-box input,.ai-field select,.ai-field input,.seed-toolbar input[type=text],.seed-toolbar select,
+  .gen-field select,.gen-field input[type=text],.gen-field input[type=number],
+  .gen-exec-sub select,.gen-exec-sub input[type=text],.gen-exec-sub input[type=number],
+  .gen-exec-run input,.gen-input-bar input,.ai-input textarea{
+    background-color:var(--lg-input);
+    border:1px solid var(--lg-input-brd);
+    box-shadow:inset 0 1px 2px rgba(23,84,148,.08),0 1px 3px rgba(38,78,170,.10);
+  }
+  html[data-theme="dark"] .search-box input,html[data-theme="dark"] .ai-field select,
+  html[data-theme="dark"] .ai-field input,html[data-theme="dark"] .seed-toolbar input[type=text],
+  html[data-theme="dark"] .seed-toolbar select,html[data-theme="dark"] .gen-field select,
+  html[data-theme="dark"] .gen-field input[type=text],html[data-theme="dark"] .gen-field input[type=number],
+  html[data-theme="dark"] .gen-exec-sub select,html[data-theme="dark"] .gen-exec-sub input[type=text],
+  html[data-theme="dark"] .gen-exec-sub input[type=number],html[data-theme="dark"] .gen-exec-run input,
+  html[data-theme="dark"] .gen-input-bar input,html[data-theme="dark"] .ai-input textarea{
+    box-shadow:inset 0 1px 2px rgba(0,0,0,.25);
+  }
+  /* 输入面 / 迷你按钮：轻磨砂玻璃 */
+  .search-box input,.copy-mini,.ts-link,.back-btn,.detail-nav button{
+    -webkit-backdrop-filter:blur(12px) saturate(1.6);
+    backdrop-filter:blur(12px) saturate(1.6);
+  }
+  /* 标题微文字阴影：亮色提白、暗色压暗，保证玻璃上的可读性 */
+  .home-card h3,.wiki-card h2,.page-head h2,.detail-card h2,.home-hero h1{
+    text-shadow:0 1px 2px rgba(255,255,255,.55);
+  }
+  html[data-theme="dark"] .home-card h3,html[data-theme="dark"] .wiki-card h2,
+  html[data-theme="dark"] .page-head h2,html[data-theme="dark"] .detail-card h2,
+  html[data-theme="dark"] .home-hero h1{
+    text-shadow:0 1px 3px rgba(0,0,0,.55);
+  }
+  /* 暗色模式：次要小字微阴影锐化，避免玻璃上发虚 */
+  html[data-theme="dark"] .home-card p,html[data-theme="dark"] .list-item .info span,
+  html[data-theme="dark"] .wiki-card .wiki-tx span,html[data-theme="dark"] .detail-card .sub,
+  html[data-theme="dark"] .field .lbl,html[data-theme="dark"] .daily-card .dc-tx .dc-cmd,
+  html[data-theme="dark"] .search-result-item .sri-tx span{
+    text-shadow:0 1px 2px rgba(0,0,0,.35);
+  }
+
+  /* —— 卡片内部区域：一并半透明化，层层叠玻璃 —— */
+  .cmd,.principle{background:rgba(255,255,255,.26)}
+  html[data-theme="dark"] .cmd,html[data-theme="dark"] .principle{background:rgba(0,0,0,.30)}
+  .branch-group-head,.ts-group-head{background:rgba(47,127,209,.12)}
+  .branch-group-head:hover,.ts-group-head:hover{background:rgba(47,127,209,.20)}
+  html[data-theme="dark"] .branch-group-head,html[data-theme="dark"] .ts-group-head{background:rgba(76,140,220,.16)}
+  html[data-theme="dark"] .branch-group-head:hover,html[data-theme="dark"] .ts-group-head:hover{background:rgba(76,140,220,.26)}
+  .branch-item:hover{background:rgba(47,127,209,.10)}
+  html[data-theme="dark"] .branch-item:hover{background:rgba(76,140,220,.14)}
+  .gen-panel-head,.ai-chat-head{background:linear-gradient(135deg,rgba(47,127,209,.15),rgba(255,255,255,.18))}
+  html[data-theme="dark"] .gen-panel-head,html[data-theme="dark"] .ai-chat-head{background:linear-gradient(135deg,rgba(76,140,220,.18),rgba(140,180,240,.04))}
+  .gen-input-bar,.ai-input{background:rgba(255,255,255,.35)}
+  html[data-theme="dark"] .gen-input-bar,html[data-theme="dark"] .ai-input{background:rgba(140,180,240,.06)}
+  .gen-foot{background:rgba(240,247,253,.35)}
+  html[data-theme="dark"] .gen-foot{background:rgba(9,22,42,.40)}
+  .ai-msgs{background:rgba(240,247,253,.40)}
+  html[data-theme="dark"] .ai-msgs{background:rgba(9,22,42,.45)}
+  .ai-msg.bot{background:rgba(255,255,255,.60)}
+  html[data-theme="dark"] .ai-msg.bot{background:rgba(20,36,62,.66)}
+  .ai-think{background:rgba(47,127,209,.07)}
+  html[data-theme="dark"] .ai-think{background:rgba(76,140,220,.10)}
+  .ai-kb-box{background:rgba(240,247,253,.55)}
+  html[data-theme="dark"] .ai-kb-box{background:rgba(140,180,240,.07)}
+  .ai-modes{background:rgba(47,127,209,.14)}
+  html[data-theme="dark"] .ai-modes{background:rgba(76,140,220,.16)}
+  .gen-syn-bar{background:rgba(47,127,209,.10)}
+  html[data-theme="dark"] .gen-syn-bar{background:rgba(76,140,220,.14)}
+  .gen-exec-run{background:rgba(240,247,253,.50)}
+  html[data-theme="dark"] .gen-exec-run{background:rgba(140,180,240,.07)}
+  .gen-type.on{background:linear-gradient(135deg,rgba(47,127,209,.18),rgba(255,255,255,.30))}
+  html[data-theme="dark"] .gen-type.on{background:linear-gradient(135deg,rgba(76,140,220,.24),rgba(140,180,240,.08))}
+  .gen-all-item.on{background:linear-gradient(135deg,rgba(47,127,209,.16),rgba(255,255,255,.28))}
+  html[data-theme="dark"] .gen-all-item.on{background:linear-gradient(135deg,rgba(76,140,220,.22),rgba(140,180,240,.08))}
+  .ts-hist th{background:rgba(47,127,209,.12)}
+  html[data-theme="dark"] .ts-hist th{background:rgba(76,140,220,.16)}
+  .ts-ex .ex-cmd,.branch-item .b-copy,.ts-ex .ex-copy,.ai-btns .btn.ghost,.seed-toolbar .btn.ghost{
+    background-color:var(--lg-input);
+  }
+  .seed-map-box{border-color:var(--lg-brd-soft)}
+  .seed-hint{
+    background:rgba(255,255,255,.55);
+    border:1px solid var(--lg-brd-soft);
+    -webkit-backdrop-filter:blur(10px) saturate(1.5);
+    backdrop-filter:blur(10px) saturate(1.5);
+  }
+  html[data-theme="dark"] .seed-hint{background:rgba(10,25,47,.60)}
+  .seed-coord{
+    background:rgba(11,42,74,.60);
+    border:1px solid rgba(150,190,245,.25);
+    -webkit-backdrop-filter:blur(8px);
+    backdrop-filter:blur(8px);
+  }
+
+  /* —— Toast / 页脚：玻璃胶囊 —— */
+  #toast{
+    background:rgba(13,42,76,.55);
+    border:1px solid rgba(150,190,245,.28);
+    box-shadow:0 16px 40px -12px rgba(0,0,0,.45),inset 0 1px .5px rgba(255,255,255,.18);
+  }
+  footer{
+    background:rgba(255,255,255,.30);
+    border-top:1px solid var(--lg-brd-soft);
+    -webkit-backdrop-filter:blur(14px) saturate(1.5);
+    backdrop-filter:blur(14px) saturate(1.5);
+  }
+  html[data-theme="dark"] footer{background:rgba(8,21,39,.42)}
+
+  /* —— 圆角整体加大，更接近苹果连续曲率 —— */
+  .home-card,.wiki-card,.daily-card,.music-placeholder,.tools-empty,.search-empty,.about-card{border-radius:22px}
+  .detail-card{border-radius:24px}
+  .list-item,.search-result-item{border-radius:18px}
+  .recent-item,.ts-var,.ts-group,.branch-group,.ts-limit,.ts-hist,.ts-var-detail,.ai-settings,.layer-panel,.structure-popup,.gen-exec-sub{border-radius:16px}
+  .gen-panel,.ai-chat{border-radius:18px}
+  .idq-item,.idq-search,.gen-type{border-radius:14px}
+
+  /* —— 玻璃化后补回聚焦光环 —— */
+  .idq-search:focus-within{box-shadow:0 0 0 3px rgba(47,127,209,.15),var(--lg-shadow)}
+
+  /* —— 滚动条：细玻璃条 —— */
+  ::-webkit-scrollbar{width:10px;height:10px}
+  ::-webkit-scrollbar-track{background:transparent}
+  ::-webkit-scrollbar-thumb{background:rgba(47,127,209,.28);background-clip:content-box;border:2px solid transparent;border-radius:99px}
+  ::-webkit-scrollbar-thumb:hover{background:rgba(47,127,209,.5);background-clip:content-box;border:2px solid transparent}
+  html[data-theme="dark"] ::-webkit-scrollbar-thumb{background:rgba(120,170,240,.28);background-clip:content-box;border:2px solid transparent}
+  html[data-theme="dark"] ::-webkit-scrollbar-thumb:hover{background:rgba(120,170,240,.5);background-clip:content-box;border:2px solid transparent}
+
+  /* —— 小屏：折射环收窄 —— */
+  @media(max-width:480px){
+    .home-card::before,.detail-card::before,.about-card::before,.wiki-card::before,.daily-card::after,
+    .search-result-item::before,.structure-popup::before,.ts-hero::before,
+    .gen-panel::before,.ai-chat::before,.music-placeholder::before,
+    .tools-empty::before,.search-empty::before{padding:9px}
+    .structure-popup::before{padding:6px}
+  }
+
+  /* —— 减少动态效果 —— */
+  @media (prefers-reduced-motion:reduce){
+    body::before,body::after{animation:none}
+    .home-card::after,.wiki-card::after{transition:none}
+  }
+
+  /* —— 不支持 backdrop-filter 的浏览器：提高不透明度保证可读 —— */
+  @supports not ((backdrop-filter:blur(4px)) or (-webkit-backdrop-filter:blur(4px))){
+    :root{--lg-bg-1:rgba(255,255,255,.92);--lg-bg-2:rgba(255,255,255,.90);--lg-input:rgba(255,255,255,.95)}
+    html[data-theme="dark"]{--lg-bg-1:rgba(14,36,66,.94);--lg-bg-2:rgba(14,36,66,.92);--lg-input:rgba(10,29,55,.95)}
+  }
 </style><style id="trae-panel-enter-style">
         @keyframes trae-panel-enter {
           from { opacity: 0; transform: scale(0.95); }
@@ -1068,6 +1510,22 @@
         }
       </style><script src="assets/gen_commands.js"></script></head>
 <body style="">
+
+<!-- 液态玻璃折射滤镜（backdrop-filter 引用）：feTurbulence 噪声 → feGaussianBlur 柔化 → feDisplacementMap 位移 -->
+<svg class="lg-defs" width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" focusable="false">
+  <defs>
+    <filter id="lgDistort" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.008 0.012" numOctaves="2" seed="37" result="n"/>
+      <feGaussianBlur in="n" stdDeviation="3" result="nb"/>
+      <feDisplacementMap in="SourceGraphic" in2="nb" scale="38" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="lgDistortSoft" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.012 0.016" numOctaves="2" seed="17" result="n"/>
+      <feGaussianBlur in="n" stdDeviation="2.5" result="nb"/>
+      <feDisplacementMap in="SourceGraphic" in2="nb" scale="22" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+</svg>
 
 <!-- 移动端顶栏 -->
 <div class="m-topbar">
